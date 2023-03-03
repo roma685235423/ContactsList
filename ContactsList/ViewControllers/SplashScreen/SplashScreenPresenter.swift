@@ -26,12 +26,14 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
         case .denied:
             switchToGetAccessView()
         case .notDetermined:
-            ContactServiceImpl().requestAccess { [weak self] isGrained in
+            DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                if isGrained {
-                    self.switchToContactView()
-                } else {
-                    self.switchToGetAccessView()
+                ContactServiceImpl().requestAccess { isGrained in
+                    if isGrained {
+                        self.switchToContactView()
+                    } else {
+                        self.switchToGetAccessView()
+                    }
                 }
             }
         case .restricted:
@@ -42,11 +44,13 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
     }
     
     private func switchToContactView() {
-        guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
-        let contactsView = ContactViewController()
-        let contactPresenter = ContactViewPresenter()
-        contactsView.presenter = contactPresenter
-        window.rootViewController = contactsView
+        DispatchQueue.main.async {
+            guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
+            let contactsView = ContactViewController()
+            let contactPresenter = ContactViewPresenter()
+            contactsView.presenter = contactPresenter
+            window.rootViewController = contactsView
+        }
     }
     
     private func switchToGetAccessView() {

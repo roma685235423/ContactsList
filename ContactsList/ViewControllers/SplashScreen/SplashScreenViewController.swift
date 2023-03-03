@@ -18,7 +18,7 @@ final class SplashScreenViewControler: UIViewController & SplashScreenViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
-        view?.backgroundColor = UIColor(named: "FullBlack")
+        view?.backgroundColor = MyColors.fullBlack
         presenter?.view = self
         presenter?.viewDidLoad()
     }

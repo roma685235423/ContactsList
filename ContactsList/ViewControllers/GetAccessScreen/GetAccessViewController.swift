@@ -1,9 +1,11 @@
 import UIKit
 
 final class GetAccessViewConrtoller: UIViewController {
+    // MARK: - Properties
     private let logoImageView = UIImageView()
-    private var count = 0
     
+    
+    // MARK: - Lifecicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -11,11 +13,13 @@ final class GetAccessViewConrtoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
-        view?.backgroundColor = UIColor(named: "FullBlack")
+        view?.backgroundColor = MyColors.fullBlack
         configureLogoImageView()
         configureGetAccessButton()
     }
     
+    
+    // MARK: - Methods
     private func configureLogoImageView() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoImageView)
@@ -29,6 +33,7 @@ final class GetAccessViewConrtoller: UIViewController {
         ])
     }
     
+    
     private func configureGetAccessButton() {
         let getAccessButton = UIButton()
         getAccessButton.translatesAutoresizingMaskIntoConstraints = false
@@ -36,8 +41,8 @@ final class GetAccessViewConrtoller: UIViewController {
         getAccessButton.addTarget(self, action: #selector(Self.didTapGetAccessButton), for: .touchUpInside)
         getAccessButton.setTitle("Хочу увидеть свои контакты", for: .normal)
         getAccessButton.titleLabel?.font = UIFont(name: "SFProText-Medium", size: 16)
-        getAccessButton.titleLabel?.textColor = UIColor(named: "White")
-        getAccessButton.backgroundColor = UIColor(named: "Blue")
+        getAccessButton.titleLabel?.textColor = MyColors.white
+        getAccessButton.backgroundColor = MyColors.blue
         getAccessButton.layer.cornerRadius = 24
         
         NSLayoutConstraint.activate([
@@ -47,6 +52,7 @@ final class GetAccessViewConrtoller: UIViewController {
             getAccessButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -58)
         ])
     }
+    
     
     @objc
     private func didTapGetAccessButton() {

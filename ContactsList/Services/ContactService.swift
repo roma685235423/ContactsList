@@ -23,7 +23,7 @@ final class ContactServiceImpl: ContactService {
                     cnContacts.append(contact)
                 }
                 
-                _ = cnContacts.map { cnContact in
+                let contacts = cnContacts.map { cnContact in
                     let phoneLabeledValue = cnContact.phoneNumbers.first {
                         $0.label == CNLabelPhoneNumberMobile
                     }
@@ -33,6 +33,7 @@ final class ContactServiceImpl: ContactService {
                         phone: phone
                     )
                 }
+                completion(contacts)
             } catch {
                 completion([])
             }
