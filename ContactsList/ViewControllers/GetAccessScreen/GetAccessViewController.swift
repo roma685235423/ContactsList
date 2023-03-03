@@ -4,7 +4,6 @@ final class GetAccessViewConrtoller: UIViewController {
     // MARK: - Properties
     private let logoImageView = UIImageView()
     
-    
     // MARK: - Lifecicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -17,7 +16,6 @@ final class GetAccessViewConrtoller: UIViewController {
         configureLogoImageView()
         configureGetAccessButton()
     }
-    
     
     // MARK: - Methods
     private func configureLogoImageView() {

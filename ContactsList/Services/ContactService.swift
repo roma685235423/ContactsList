@@ -14,7 +14,8 @@ final class ContactServiceImpl: ContactService {
         let request = CNContactFetchRequest(keysToFetch: [
             CNContactGivenNameKey,
             CNContactFamilyNameKey,
-            CNContactPhoneNumbersKey
+            CNContactPhoneNumbersKey,
+            CNContactImageDataKey
         ] as [CNKeyDescriptor])
         DispatchQueue.global().async {
             do{
@@ -27,10 +28,13 @@ final class ContactServiceImpl: ContactService {
                     let phoneLabeledValue = cnContact.phoneNumbers.first {
                         $0.label == CNLabelPhoneNumberMobile
                     }
+                    let photoData = cnContact.imageData
+                    
                     let phone = phoneLabeledValue?.value.stringValue ?? "No mobile phone number"
                     return Contact(
                         name: "\(cnContact.givenName) \(cnContact.familyName)",
-                        phone: phone
+                        phone: phone,
+                        photoData: photoData
                     )
                 }
                 completion(contacts)
