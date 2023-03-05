@@ -1,4 +1,4 @@
-import Foundation
+import MessageUI
 import Contacts
 
 protocol ContactService {

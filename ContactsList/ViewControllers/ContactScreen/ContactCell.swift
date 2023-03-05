@@ -7,12 +7,11 @@ final class ContactCell: UITableViewCell {
     private var contactName = UILabel()
     private var contactPhone = UILabel()
     private let contactCellView = UIView()
-    let cellId = "ContactCellID"
     
     // MARK: - Methods
     func configureCell(name: String, phone: String, imageData: Data?) {
         self.selectionStyle = .none
-        self.backgroundView?.backgroundColor = .clear
+        self.contentView.backgroundColor = MyColors.fullBlack
         let image = configureImage(imageData: imageData)
         configureContactCellView()
         configureContactImage(image: image)
@@ -53,6 +52,7 @@ final class ContactCell: UITableViewCell {
         contactName.translatesAutoresizingMaskIntoConstraints = false
         contactName.font = UIFont(name: "SFProText-Medium", size: 32)
         contactName.text = name
+        contactName.textColor = MyColors.white
         contactCellView.addSubview(contactName)
         
         NSLayoutConstraint.activate([

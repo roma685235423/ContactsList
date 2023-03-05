@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA05D9A029B3A19B001C5725 /* ContactCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D99F29B3A19B001C5725 /* ContactCellContent.swift */; };
+		BA05D9A329B3AD52001C5725 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A229B3AD52001C5725 /* FilterViewController.swift */; };
+		BA05D9A529B3B1E6001C5725 /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A429B3B1E6001C5725 /* FilterViewCell.swift */; };
+		BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */; };
 		BA31568E29B1F4E60092A0FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */; };
 		BA8F422329AE7F0F00567099 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422229AE7F0F00567099 /* AppDelegate.swift */; };
 		BA8F422529AE7F0F00567099 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422429AE7F0F00567099 /* SceneDelegate.swift */; };
@@ -29,7 +33,7 @@
 		BA8F427329B106B800567099 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8F426E29B106B800567099 /* SF-Pro-Text-Regular.otf */; };
 		BA8F427429B106B800567099 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8F426F29B106B800567099 /* SF-Pro-Text-Medium.otf */; };
 		BA8F427629B116E400567099 /* MyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F427529B116E400567099 /* MyColors.swift */; };
-		BA8F427929B1185F00567099 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F427829B1185F00567099 /* ColorExtension.swift */; };
+		BA8F427929B1185F00567099 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F427829B1185F00567099 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BA05D99F29B3A19B001C5725 /* ContactCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCellContent.swift; sourceTree = "<group>"; };
+		BA05D9A229B3AD52001C5725 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		BA05D9A429B3B1E6001C5725 /* FilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
+		BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA8F421F29AE7F0F00567099 /* ContactsList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8F422229AE7F0F00567099 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +84,7 @@
 		BA8F426E29B106B800567099 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Regular.otf"; path = "ContactsList/Resources/SF-Pro-Text-Regular.otf"; sourceTree = SOURCE_ROOT; };
 		BA8F426F29B106B800567099 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Medium.otf"; path = "ContactsList/Resources/SF-Pro-Text-Medium.otf"; sourceTree = SOURCE_ROOT; };
 		BA8F427529B116E400567099 /* MyColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyColors.swift; sourceTree = "<group>"; };
-		BA8F427829B1185F00567099 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		BA8F427829B1185F00567099 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA05D9A129B3ACB4001C5725 /* FilterView */ = {
+			isa = PBXGroup;
+			children = (
+				BA05D9A229B3AD52001C5725 /* FilterViewController.swift */,
+				BA05D9A429B3B1E6001C5725 /* FilterViewCell.swift */,
+				BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */,
+			);
+			path = FilterView;
+			sourceTree = "<group>";
+		};
 		BA31568729B1F4AB0092A0FC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +187,7 @@
 		BA8F425529AEA13B00567099 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BA05D9A129B3ACB4001C5725 /* FilterView */,
 				BA8F426629B0EED100567099 /* GetAccessScreen */,
 				BA8F425929AF46C900567099 /* SplashScreen */,
 				BA8F425629AEA16700567099 /* ContactScreen */,
@@ -199,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				BA8F425D29AF4C8200567099 /* Contact.swift */,
+				BA05D99F29B3A19B001C5725 /* ContactCellContent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,7 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				BA8F427529B116E400567099 /* MyColors.swift */,
-				BA8F427829B1185F00567099 /* ColorExtension.swift */,
+				BA8F427829B1185F00567099 /* UIColorExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -376,19 +396,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA05D9A529B3B1E6001C5725 /* FilterViewCell.swift in Sources */,
 				BA8F426329AF7D7B00567099 /* ContactCell.swift in Sources */,
 				BA8F427629B116E400567099 /* MyColors.swift in Sources */,
 				BA8F422D29AE7F0F00567099 /* ContactsList.xcdatamodeld in Sources */,
 				BA8F426129AF5C0F00567099 /* SplashScreenPresenter.swift in Sources */,
 				BA8F422729AE7F0F00567099 /* ContactViewController.swift in Sources */,
+				BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */,
 				BA8F425B29AF46EC00567099 /* SplashScreenViewController.swift in Sources */,
 				BA8F426829B0EF4400567099 /* GetAccessViewController.swift in Sources */,
 				BA8F422329AE7F0F00567099 /* AppDelegate.swift in Sources */,
 				BA8F422529AE7F0F00567099 /* SceneDelegate.swift in Sources */,
+				BA05D9A029B3A19B001C5725 /* ContactCellContent.swift in Sources */,
 				BA8F425829AEA19500567099 /* ContactViewPresenter.swift in Sources */,
 				BA8F426529AF834400567099 /* ContactService.swift in Sources */,
 				BA8F425E29AF4C8200567099 /* Contact.swift in Sources */,
-				BA8F427929B1185F00567099 /* ColorExtension.swift in Sources */,
+				BA05D9A329B3AD52001C5725 /* FilterViewController.swift in Sources */,
+				BA8F427929B1185F00567099 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

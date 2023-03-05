@@ -2,18 +2,17 @@ import UIKit
 
 protocol ContactViewControllerProtocol {
     var presenter: ContactViewPresenterProtocol? { get set }
-    var tableView: UITableView { get set }
+    func reloadTableData()
 }
 
 
 final class ContactViewController: UIViewController & ContactViewControllerProtocol{
     // MARK: - Properties
     var presenter: ContactViewPresenterProtocol?
-    private var
-    tableStackView = UIView()
+    var tableView = UITableView()
+    
     private var filterButton = UIButton()
     private var sortButton = UIButton()
-    var tableView = UITableView()
     private var headerTextLabel = UILabel()
     private var cellId = String(describing: ContactCell.self)
     
@@ -25,14 +24,14 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
-        configuretableStack()
-        tableView.delegate = self
-        tableView.dataSource = self
-        presenter?.view = self
-        presenter?.loadData()
-        view.backgroundColor = MyColors.fullBlack
-        tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
-        tableView.reloadData()
+        initialSettings()
+    }
+    
+    func reloadTableData() {
+        DispatchQueue.main.async { [ weak self ] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -62,45 +61,29 @@ extension ContactViewController: UITableViewDataSource {
 
 
 extension ContactViewController: UITableViewDelegate {
-    private func configuretableStack() {
-        tableStackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableStackView)
-        tableView.backgroundColor = .clear
-        NSLayoutConstraint.activate([
-            tableStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 46),
-            tableStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
-        configureTableView()
-        createHeaderText()
-        configureFilterButton()
-        configureSortButton()
-    }
-    
-    
     private func configureTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableStackView.addSubview(tableView)
+        view.addSubview(tableView)
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        tableView.indicatorStyle = .white
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: tableStackView.topAnchor, constant: 48),
-            tableView.bottomAnchor.constraint(equalTo: tableStackView.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: tableStackView.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: tableStackView.trailingAnchor)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 116),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
     private func createHeaderText() {
         headerTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        tableStackView.addSubview(headerTextLabel)
+        view.addSubview(headerTextLabel)
         headerTextLabel.font = UIFont(name: "SFProText-Bold", size: 34)
         headerTextLabel.text = "Контакты"
         headerTextLabel.textColor = MyColors.white
         NSLayoutConstraint.activate([
-            headerTextLabel.topAnchor.constraint(equalTo: tableStackView.topAnchor),
-            headerTextLabel.leadingAnchor.constraint(equalTo: tableStackView.leadingAnchor, constant: 16),
+            headerTextLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 48),
+            headerTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             headerTextLabel.widthAnchor.constraint(equalToConstant: 200),
             headerTextLabel.heightAnchor.constraint(equalToConstant: 41)
         ])
@@ -112,11 +95,11 @@ extension ContactViewController: UITableViewDelegate {
         filterButton = UIButton.systemButton(with: unwrappedImage, target: self, action: #selector(Self.didTapFilterButton))
         filterButton.tintColor = MyColors.white
         filterButton.translatesAutoresizingMaskIntoConstraints = false
-        tableStackView.addSubview(filterButton)
+        view.addSubview(filterButton)
         
         NSLayoutConstraint.activate([
             filterButton.centerYAnchor.constraint(equalTo: headerTextLabel.centerYAnchor),
-            filterButton.trailingAnchor.constraint(equalTo: tableStackView.trailingAnchor, constant: -18),
+            filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
             filterButton.widthAnchor.constraint(equalToConstant: 18),
             filterButton.heightAnchor.constraint(equalToConstant: 18)
         ])
@@ -128,7 +111,7 @@ extension ContactViewController: UITableViewDelegate {
         sortButton = UIButton.systemButton(with: unwrappedImage, target: self, action: #selector(Self.didTapSortButton))
         sortButton.tintColor = MyColors.white
         sortButton.translatesAutoresizingMaskIntoConstraints = false
-        tableStackView.addSubview(sortButton)
+        view.addSubview(sortButton)
         
         NSLayoutConstraint.activate([
             sortButton.centerYAnchor.constraint(equalTo: headerTextLabel.centerYAnchor),
@@ -138,10 +121,28 @@ extension ContactViewController: UITableViewDelegate {
         ])
     }
     
+    private func initialSettings() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        configureTableView()
+        createHeaderText()
+        configureFilterButton()
+        configureSortButton()
+        presenter?.view = self
+        presenter?.loadData()
+        view.backgroundColor = MyColors.fullBlack
+        tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
+        reloadTableData()
+    }
+    
     
     @objc
     private func didTapFilterButton() {
-        
+        let filterViewController = FilterViewController()
+        let filterPresenter = FilterPresenter()
+        filterViewController.presenter = filterPresenter
+        filterViewController.modalPresentationStyle = .pageSheet
+        present(filterViewController, animated: true)
     }
     
     @objc

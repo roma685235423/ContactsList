@@ -21,9 +21,7 @@ final class ContactViewPresenter: ContactViewPresenterProtocol {
         service.loadContacts{ [ weak self ] contacts in
             guard let self = self else { return }
             self.contactCellModels = contacts
-            DispatchQueue.main.async {
-                self.view?.tableView.reloadData()
-            }
+            self.view?.reloadTableData()
         }
     }
 }
