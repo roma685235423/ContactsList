@@ -6,7 +6,7 @@ protocol FilterCellDelegate: AnyObject {
 
 final class FilterViewCell: UITableViewCell {
     weak var delegate: FilterCellDelegate?
-    private var checkboxButton = UIButton()
+    private var checkboxIndicator = UIImageView()
     private let cellBackgroundView = UIView()
     private var checkboxButtonIsSelected: Bool = false
     
@@ -25,6 +25,8 @@ final class FilterViewCell: UITableViewCell {
         cellBackgroundView.backgroundColor = MyColors.black
         cellBackgroundView.layer.cornerRadius = 24
         cellBackgroundView.layer.masksToBounds = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(Self.cellDidTap))
+        self.addGestureRecognizer(tapGesture)
         self.addSubview(cellBackgroundView)
         
         NSLayoutConstraint.activate([
@@ -73,22 +75,21 @@ final class FilterViewCell: UITableViewCell {
     }
     
     private func configureCheckboxButton(isSelected: Bool) {
-        checkboxButton.translatesAutoresizingMaskIntoConstraints = false
-        checkboxButton.backgroundColor = .clear
-        checkboxButton.setImage(UIImage(named: "filterOff"), for: .normal)
-        checkboxButton.addTarget(self, action: #selector(Self.didTapCheckboxButton), for: .touchUpInside)
-        cellBackgroundView.addSubview(checkboxButton)
+        checkboxIndicator.translatesAutoresizingMaskIntoConstraints = false
+        checkboxIndicator.backgroundColor = .clear
+        checkboxIndicator.image = UIImage(named: "filterOff")
+        cellBackgroundView.addSubview(checkboxIndicator)
         
         NSLayoutConstraint.activate([
-            checkboxButton.centerYAnchor.constraint(equalTo: cellBackgroundView.centerYAnchor),
-            checkboxButton.rightAnchor.constraint(equalTo: cellBackgroundView.rightAnchor, constant: -22),
-            checkboxButton.heightAnchor.constraint(equalToConstant: 20),
-            checkboxButton.widthAnchor.constraint(equalToConstant: 20)
+            checkboxIndicator.centerYAnchor.constraint(equalTo: cellBackgroundView.centerYAnchor),
+            checkboxIndicator.rightAnchor.constraint(equalTo: cellBackgroundView.rightAnchor, constant: -22),
+            checkboxIndicator.heightAnchor.constraint(equalToConstant: 20),
+            checkboxIndicator.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
     
     @objc
-    private func didTapCheckboxButton() {
+    private func cellDidTap() {
         self.isSelected = !self.isSelected
         let isSelected = self.isSelected
         changeCheckboxButtonImage(isSelected: isSelected)
@@ -99,9 +100,9 @@ final class FilterViewCell: UITableViewCell {
          DispatchQueue.main.async { [weak self] in
              guard let self = self else { return }
              if isSelected {
-                 self.checkboxButton.setImage(UIImage(named: "filterOn"), for: .normal)
+                 self.checkboxIndicator.image = UIImage(named: "filterOn")
              } else {
-                 self.checkboxButton.setImage(UIImage(named: "filterOff"), for: .normal)
+                 self.checkboxIndicator.image = UIImage(named: "filterOff")
              }
          }
     }
