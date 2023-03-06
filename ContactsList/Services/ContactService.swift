@@ -46,7 +46,6 @@ final class ContactServiceImpl: ContactService {
     
     func requestAccess(completion: @escaping (Bool) -> Void) {
         contactStore.requestAccess(for: .contacts) { isGrant, error in
-            print(error?.localizedDescription as Any)
             completion(isGrant)
         }
     }

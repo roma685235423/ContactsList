@@ -1,14 +1,21 @@
 import UIKit
 
+protocol FilterCellDelegate: AnyObject {
+    func filterCheckboxButtonClicked(cell:FilterViewCell)
+}
+
 final class FilterViewCell: UITableViewCell {
+    weak var delegate: FilterCellDelegate?
     private var checkboxButton = UIButton()
     private let cellBackgroundView = UIView()
+    private var checkboxButtonIsSelected: Bool = false
     
     func configureCellContent(content: ContactCellContent) {
         configureCellBackgroundView()
         configureImageView(content: content)
         configureMessengerNameLabel(content: content)
-        configureFilterSwitch(isSelected: content.isSelected)
+        configureCheckboxButton(isSelected: content.isSelected)
+        checkboxButtonIsSelected = content.isSelected
     }
     
     private func configureCellBackgroundView() {
@@ -65,7 +72,7 @@ final class FilterViewCell: UITableViewCell {
         ])
     }
     
-    private func configureFilterSwitch(isSelected: Bool) {
+    private func configureCheckboxButton(isSelected: Bool) {
         checkboxButton.translatesAutoresizingMaskIntoConstraints = false
         checkboxButton.backgroundColor = .clear
         checkboxButton.setImage(UIImage(named: "filterOff"), for: .normal)
@@ -81,12 +88,23 @@ final class FilterViewCell: UITableViewCell {
     }
     
     @objc
-    private func didTapCheckboxButton(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected {
-            checkboxButton.setImage(UIImage(named: "filterOn"), for: .normal)
-        } else {
-            checkboxButton.setImage(UIImage(named: "filterOff"), for: .normal)
-        }
+    private func didTapCheckboxButton() {
+        self.isSelected = !self.isSelected
+        let isSelected = self.isSelected
+        changeCheckboxButtonImage(isSelected: isSelected)
+        delegate?.filterCheckboxButtonClicked(cell:self)
     }
+    
+     func changeCheckboxButtonImage(isSelected: Bool) {
+         DispatchQueue.main.async { [weak self] in
+             guard let self = self else { return }
+             if isSelected {
+                 self.checkboxButton.setImage(UIImage(named: "filterOn"), for: .normal)
+             } else {
+                 self.checkboxButton.setImage(UIImage(named: "filterOff"), for: .normal)
+             }
+         }
+    }
+    
+    
 }

@@ -10,9 +10,14 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
     private let resetButton = UIButton()
     private let conformButton = UIButton()
     private let cellID = String(describing: FilterViewCell.self)
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialSettings()
+        presenter?.copyIsSelectedToTmp()
+    }
+    
+    func initialSettings() {
         filterTableView.delegate = self
         filterTableView.dataSource = self
         presenter?.view = self
@@ -75,7 +80,7 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
     }
 }
 
-extension FilterViewController: UITableViewDataSource {
+extension FilterViewController: UITableViewDataSource & UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         68
     }
@@ -90,12 +95,62 @@ extension FilterViewController: UITableViewDataSource {
         else {
             return UITableViewCell()
         }
+        cell.delegate = self
         cell.configureCellContent(content: cellContent)
         return cell
     }
+    
+    func selectAllButtonDidTap() {
+        presenter?.selectAll()
+        filterTableView.reloadData()
+    }
 }
 
-extension FilterViewController: UITableViewDelegate {
+extension FilterViewController: FilterCellDelegate {
+    func filterCheckboxButtonClicked(cell:FilterViewCell) {
+        guard let indexPath = filterTableView.indexPath(for: cell),
+              let presenter = presenter else { return }
+        presenter.changTempIsSelectedFor(row: indexPath.row)
+        if indexPath.row == 0 {
+            presenter.selectAll()
+            changeAllButtonsImage(cell: cell)
+        } else {
+            if presenter.checkIsAllSelectedNeedDrop() == true {
+                dropSelectAllButtonState()
+            } else if presenter.checkIsAllSelectedNeedSet() == true {
+                setSelectAllButtonState()
+            }
+        }
+    }
+}
+
+
+extension FilterViewController {
+    func changeAllButtonsImage(cell: FilterViewCell) {
+        guard let tmpIsSelected = presenter?.tmpIsSelected else { return }
+        let selectAll: Bool = tmpIsSelected[0]
+        for visibleCell in filterTableView.visibleCells {
+            guard let filterCell = visibleCell as? FilterViewCell,
+                  let indexPath = filterTableView.indexPath(for: filterCell) else { continue }
+            if indexPath.row == 0 {
+                filterCell.changeCheckboxButtonImage(isSelected: selectAll)
+            } else {
+                let isSelected = tmpIsSelected[indexPath.row]
+                filterCell.changeCheckboxButtonImage(isSelected: isSelected)
+                filterCell.isSelected = selectAll
+            }
+        }
+    }
     
+    func dropSelectAllButtonState() {
+        let firstCell = filterTableView.visibleCells.first as? FilterViewCell
+        presenter?.dropSelectAll()
+        firstCell?.changeCheckboxButtonImage(isSelected: false)
+    }
     
+    func setSelectAllButtonState() {
+        let firstCell = filterTableView.visibleCells.first as? FilterViewCell
+        presenter?.setSelectAll()
+        firstCell?.changeCheckboxButtonImage(isSelected: true)
+    }
 }
