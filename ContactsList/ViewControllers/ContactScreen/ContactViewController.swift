@@ -1,4 +1,5 @@
 import UIKit
+import Foundation
 
 protocol ContactViewControllerProtocol {
     var presenter: ContactViewPresenterProtocol? { get set }
@@ -142,6 +143,7 @@ extension ContactViewController: UITableViewDelegate {
         let filterPresenter = FilterPresenter()
         filterViewController.presenter = filterPresenter
         filterViewController.modalPresentationStyle = .pageSheet
+        filterViewController.transitionDelegate = self
         present(filterViewController, animated: true)
     }
     
@@ -151,3 +153,30 @@ extension ContactViewController: UITableViewDelegate {
     }
 }
 
+extension ContactViewController: FilterTransitionDelegate {
+    func changeBackgroundToGray() {
+        //        let grayToFullBlackAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
+        //        grayToFullBlackAnimation.values = [
+        //            MyColors.fullBlack,
+        //            MyColors.gray
+        //        ]
+        //        grayToFullBlackAnimation.timeOffset = 0.1
+        //        grayToFullBlackAnimation.duration = 0.2
+        //
+        //        view.layer.add(grayToFullBlackAnimation, forKey: "backgroundColor")
+//        let newColor = UIColor.interpolate(from: MyColors.fullBlack, to: MyColors.fullBlack, progress: progress)
+//        print(progress)
+//        self.view.backgroundColor = newColor
+        DispatchQueue.main.async { [ weak self ] in
+            guard let self = self else { return }
+            self.view.backgroundColor = MyColors.gray
+        }
+    }
+    
+    func changeBackgroundToFullBlack() {
+        DispatchQueue.main.async { [ weak self ] in
+            guard let self = self else { return }
+            self.view.backgroundColor = MyColors.fullBlack
+        }
+    }
+}

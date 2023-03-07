@@ -11,6 +11,8 @@
 		BA05D9A329B3AD52001C5725 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A229B3AD52001C5725 /* FilterViewController.swift */; };
 		BA05D9A529B3B1E6001C5725 /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A429B3B1E6001C5725 /* FilterViewCell.swift */; };
 		BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */; };
+		BA05D9AC29B66F99001C5725 /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9AB29B66F99001C5725 /* SortViewController.swift */; };
+		BA05D9AE29B75223001C5725 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9AD29B75223001C5725 /* Notification+Extension.swift */; };
 		BA31568E29B1F4E60092A0FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */; };
 		BA8F422329AE7F0F00567099 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422229AE7F0F00567099 /* AppDelegate.swift */; };
 		BA8F422529AE7F0F00567099 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422429AE7F0F00567099 /* SceneDelegate.swift */; };
@@ -58,6 +60,8 @@
 		BA05D9A229B3AD52001C5725 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		BA05D9A429B3B1E6001C5725 /* FilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
 		BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
+		BA05D9AB29B66F99001C5725 /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
+		BA05D9AD29B75223001C5725 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA8F421F29AE7F0F00567099 /* ContactsList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8F422229AE7F0F00567099 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +124,14 @@
 				BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */,
 			);
 			path = FilterView;
+			sourceTree = "<group>";
+		};
+		BA05D9AA29B66F73001C5725 /* SortViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BA05D9AB29B66F99001C5725 /* SortViewController.swift */,
+			);
+			path = SortViewController;
 			sourceTree = "<group>";
 		};
 		BA31568729B1F4AB0092A0FC /* Resources */ = {
@@ -187,6 +199,7 @@
 		BA8F425529AEA13B00567099 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BA05D9AA29B66F73001C5725 /* SortViewController */,
 				BA05D9A129B3ACB4001C5725 /* FilterView */,
 				BA8F426629B0EED100567099 /* GetAccessScreen */,
 				BA8F425929AF46C900567099 /* SplashScreen */,
@@ -257,6 +270,7 @@
 			children = (
 				BA8F427529B116E400567099 /* MyColors.swift */,
 				BA8F427829B1185F00567099 /* UIColorExtension.swift */,
+				BA05D9AD29B75223001C5725 /* Notification+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -398,10 +412,12 @@
 			files = (
 				BA05D9A529B3B1E6001C5725 /* FilterViewCell.swift in Sources */,
 				BA8F426329AF7D7B00567099 /* ContactCell.swift in Sources */,
+				BA05D9AC29B66F99001C5725 /* SortViewController.swift in Sources */,
 				BA8F427629B116E400567099 /* MyColors.swift in Sources */,
 				BA8F422D29AE7F0F00567099 /* ContactsList.xcdatamodeld in Sources */,
 				BA8F426129AF5C0F00567099 /* SplashScreenPresenter.swift in Sources */,
 				BA8F422729AE7F0F00567099 /* ContactViewController.swift in Sources */,
+				BA05D9AE29B75223001C5725 /* Notification+Extension.swift in Sources */,
 				BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */,
 				BA8F425B29AF46EC00567099 /* SplashScreenViewController.swift in Sources */,
 				BA8F426829B0EF4400567099 /* GetAccessViewController.swift in Sources */,

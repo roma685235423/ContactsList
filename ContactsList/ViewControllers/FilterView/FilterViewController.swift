@@ -4,18 +4,42 @@ protocol FilterViewControllerProtocol {
     var presenter: FilterPresenterProtocol? { get set }
 }
 
+protocol FilterTransitionDelegate: AnyObject {
+    func changeBackgroundToGray()
+    func changeBackgroundToFullBlack()
+}
+
+
 final class FilterViewController: UIViewController & FilterViewControllerProtocol {
     var presenter: FilterPresenterProtocol?
     private var filterTableView = UITableView()
     private let resetButton = UIButton()
     private let conformButton = UIButton()
     private let cellID = String(describing: FilterViewCell.self)
+    weak var transitionDelegate: FilterTransitionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSettings()
         presenter?.copyIsSelectedToTmp()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        guard let transitionCoordinator = self.transitionCoordinator else { return }
+//        transitionCoordinator.animate(alongsideTransition: { [ weak self ] context in
+//            guard let percentComplite = self?.transitionCoordinator?.percentComplete else { return }
+//            self?.transitionDelegate?.changeBackgroundToGray(progress: percentComplite)
+//        }, completion: nil)
+        transitionDelegate?.changeBackgroundToGray()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        transitionDelegate?.changeBackgroundToFullBlack()
+        //transitionDelegate?.changeBackgroundToGray()
+    }
+    
     
     func initialSettings() {
         filterTableView.delegate = self
