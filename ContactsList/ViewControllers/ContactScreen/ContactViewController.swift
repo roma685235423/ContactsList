@@ -12,6 +12,8 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     var presenter: ContactViewPresenterProtocol?
     var tableView = UITableView()
     
+    var swipeInteractionController: SwipeInteractionController?
+    
     private var filterButton = UIButton()
     private var sortButton = UIButton()
     private var headerTextLabel = UILabel()
@@ -26,6 +28,7 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
         initialSettings()
+        swipeInteractionController = SwipeInteractionController(viewController: self)
     }
     
     func reloadTableData() {
@@ -131,7 +134,7 @@ extension ContactViewController: UITableViewDelegate {
         configureSortButton()
         presenter?.view = self
         presenter?.loadData()
-        view.backgroundColor = MyColors.fullBlack
+        view.backgroundColor = MyColors.red 
         tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
         reloadTableData()
     }
@@ -149,28 +152,32 @@ extension ContactViewController: UITableViewDelegate {
     
     @objc
     private func didTapSortButton() {
-        
+        let sortViewController = SortViewController()
+//        let filterPresenter = FilterPresenter()
+//        filterViewController.presenter = filterPresenter
+        sortViewController.modalPresentationStyle = .pageSheet
+//        filterViewController.transitionDelegate = self
+        present(sortViewController, animated: true)
     }
 }
 
 extension ContactViewController: FilterTransitionDelegate {
     func changeBackgroundToGray() {
-        //        let grayToFullBlackAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
-        //        grayToFullBlackAnimation.values = [
-        //            MyColors.fullBlack,
-        //            MyColors.gray
-        //        ]
-        //        grayToFullBlackAnimation.timeOffset = 0.1
-        //        grayToFullBlackAnimation.duration = 0.2
-        //
-        //        view.layer.add(grayToFullBlackAnimation, forKey: "backgroundColor")
+                let grayToFullBlackAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
+                grayToFullBlackAnimation.values = [
+                    MyColors.fullBlack,
+                    MyColors.gray
+                ]
+                grayToFullBlackAnimation.timeOffset = 0.1
+                grayToFullBlackAnimation.duration = 2
+                view.layer.add(grayToFullBlackAnimation, forKey: "backgroundColor")
 //        let newColor = UIColor.interpolate(from: MyColors.fullBlack, to: MyColors.fullBlack, progress: progress)
 //        print(progress)
 //        self.view.backgroundColor = newColor
-        DispatchQueue.main.async { [ weak self ] in
-            guard let self = self else { return }
-            self.view.backgroundColor = MyColors.gray
-        }
+//        DispatchQueue.main.async { [ weak self ] in
+//            guard let self = self else { return }
+//            self.view.backgroundColor = MyColors.gray
+//        }
     }
     
     func changeBackgroundToFullBlack() {

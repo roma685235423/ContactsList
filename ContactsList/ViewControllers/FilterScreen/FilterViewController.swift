@@ -17,6 +17,10 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
     private let conformButton = UIButton()
     private let cellID = String(describing: FilterViewCell.self)
     weak var transitionDelegate: FilterTransitionDelegate?
+    var startColor = MyColors.fullBlack
+    var endColor = MyColors.gray
+    
+    var interactionController: SwipeInteractionController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +55,12 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
         confugureConformButton()
         configureFilterTableView()
         filterTableView.reloadData()
+    }
+    
+    func updateBackgroundColor(offsetY: CGFloat) {
+        let progress = min(max(offsetY / 100, 0), 1) // ограничиваем прогресс от 0 до 1
+        let newColor = UIColor.interpolate(from: startColor, to: endColor, progress: progress)
+        self.view.backgroundColor = newColor
     }
     
     private func confugureResetButton() {
