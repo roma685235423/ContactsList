@@ -2,6 +2,8 @@ import UIKit
 
 protocol FilterViewControllerProtocol {
     var presenter: FilterPresenterProtocol? { get set }
+    func makeConfirmButtonEnabled()
+    func makeConfirmButtonUnEnabled()
 }
 
 protocol FilterTransitionDelegate: AnyObject {
@@ -10,7 +12,7 @@ protocol FilterTransitionDelegate: AnyObject {
 }
 
 
-final class FilterViewController: UIViewController & FilterViewControllerProtocol {
+final class FilterViewController: UIViewController {
     var presenter: FilterPresenterProtocol?
     private var filterTableView = UITableView()
     private let resetButton = UIButton()
@@ -21,6 +23,7 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
         super.viewDidLoad()
         initialSettings()
         presenter?.copyIsSelectedToTmp()
+        presenter?.checkConfirmButtonAccessability()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,13 +104,11 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
     @objc
     private func didTapConfirmButton() {
         presenter?.didTapConfirmButton()
-        print("\n✅")
         self.dismiss(animated: true)
     }
     
     @objc
     private func didTapResetButton() {
-        print("\n🟢")
         presenter?.didTapResetButton()
         self.dismiss(animated: true)
     }
@@ -154,6 +155,7 @@ extension FilterViewController: FilterCellDelegate {
                 setSelectAllButtonState()
             }
         }
+        presenter.checkConfirmButtonAccessability()
     }
 }
 
@@ -185,5 +187,18 @@ extension FilterViewController {
         let firstCell = filterTableView.visibleCells.first as? FilterViewCell
         presenter?.setSelectAll()
         firstCell?.changeCheckboxButtonImage(isSelected: true)
+    }
+}
+
+
+extension FilterViewController: FilterViewControllerProtocol {
+    func makeConfirmButtonEnabled() {
+        conformButton.isEnabled = true
+        conformButton.backgroundColor = MyColors.blue
+    }
+    
+    func makeConfirmButtonUnEnabled() {
+        conformButton.isEnabled = false
+        conformButton.backgroundColor = MyColors.gray
     }
 }

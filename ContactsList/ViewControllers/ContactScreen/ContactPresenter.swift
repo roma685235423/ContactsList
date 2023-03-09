@@ -7,9 +7,10 @@ protocol ContactViewPresenterProtocol {
     var contactCellModels: [Contact] { get }
 }
 
-final class ContactViewPresenter: ContactViewPresenterProtocol {
+final class ContactPresenter: ContactViewPresenterProtocol {
     var view: ContactViewControllerProtocol?
     var contactCellModels: [Contact] = []
+    
     private var service: ContactService = ContactServiceImpl()
     
     

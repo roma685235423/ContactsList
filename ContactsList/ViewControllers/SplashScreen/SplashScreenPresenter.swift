@@ -47,7 +47,7 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
         DispatchQueue.main.async {
             guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
             let contactsView = ContactViewController()
-            let contactPresenter = ContactViewPresenter()
+            let contactPresenter = ContactPresenter()
             contactsView.presenter = contactPresenter
             window.rootViewController = contactsView
         }

@@ -25,7 +25,7 @@
 		BA8F423D29AE7F1400567099 /* ContactsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F423C29AE7F1400567099 /* ContactsListTests.swift */; };
 		BA8F424729AE7F1400567099 /* ContactsListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F424629AE7F1400567099 /* ContactsListUITests.swift */; };
 		BA8F424929AE7F1400567099 /* ContactsListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F424829AE7F1400567099 /* ContactsListUITestsLaunchTests.swift */; };
-		BA8F425829AEA19500567099 /* ContactViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F425729AEA19500567099 /* ContactViewPresenter.swift */; };
+		BA8F425829AEA19500567099 /* ContactPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F425729AEA19500567099 /* ContactPresenter.swift */; };
 		BA8F425B29AF46EC00567099 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F425A29AF46EC00567099 /* SplashScreenViewController.swift */; };
 		BA8F425E29AF4C8200567099 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F425D29AF4C8200567099 /* Contact.swift */; };
 		BA8F426129AF5C0F00567099 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F426029AF5C0F00567099 /* SplashScreenPresenter.swift */; };
@@ -81,7 +81,7 @@
 		BA8F424229AE7F1400567099 /* ContactsListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactsListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8F424629AE7F1400567099 /* ContactsListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListUITests.swift; sourceTree = "<group>"; };
 		BA8F424829AE7F1400567099 /* ContactsListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		BA8F425729AEA19500567099 /* ContactViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewPresenter.swift; sourceTree = "<group>"; };
+		BA8F425729AEA19500567099 /* ContactPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPresenter.swift; sourceTree = "<group>"; };
 		BA8F425A29AF46EC00567099 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		BA8F425D29AF4C8200567099 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		BA8F426029AF5C0F00567099 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				BA8F422629AE7F0F00567099 /* ContactViewController.swift */,
-				BA8F425729AEA19500567099 /* ContactViewPresenter.swift */,
+				BA8F425729AEA19500567099 /* ContactPresenter.swift */,
 				BA8F426229AF7D7B00567099 /* ContactCell.swift */,
 			);
 			path = ContactScreen;
@@ -443,7 +443,7 @@
 				BA8F422329AE7F0F00567099 /* AppDelegate.swift in Sources */,
 				BA8F422529AE7F0F00567099 /* SceneDelegate.swift in Sources */,
 				BA05D9A029B3A19B001C5725 /* ContactCellContent.swift in Sources */,
-				BA8F425829AEA19500567099 /* ContactViewPresenter.swift in Sources */,
+				BA8F425829AEA19500567099 /* ContactPresenter.swift in Sources */,
 				BA8F426529AF834400567099 /* ContactService.swift in Sources */,
 				BA8F425E29AF4C8200567099 /* Contact.swift in Sources */,
 				BA05D9A329B3AD52001C5725 /* FilterViewController.swift in Sources */,

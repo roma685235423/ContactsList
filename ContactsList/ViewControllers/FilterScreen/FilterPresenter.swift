@@ -13,6 +13,7 @@ protocol FilterPresenterProtocol {
     func setSelectAll()
     func didTapConfirmButton()
     func didTapResetButton()
+    func checkConfirmButtonAccessability()
 }
 
 final class FilterPresenter: FilterPresenterProtocol {
@@ -28,7 +29,7 @@ final class FilterPresenter: FilterPresenterProtocol {
         ContactCellContent(name: "Threema", iconName: "threemaSqr"),
         ContactCellContent(name: "Номер телефона", iconName: "phoneSqr"),
         ContactCellContent(name: "E-mail", iconName: "emailSqr")
-        ]
+    ]
     var tmpIsSelected: [Bool] = []
     
     
@@ -47,7 +48,7 @@ final class FilterPresenter: FilterPresenterProtocol {
         }
     }
     
-     func checkIsAllSelectedNeedDrop() -> Bool {
+    func checkIsAllSelectedNeedDrop() -> Bool {
         let messengersCheckbox = tmpIsSelected.dropFirst()
         let allCheckboxTrue = messengersCheckbox.allSatisfy({$0 == true})
         if tmpIsSelected[0] == true && allCheckboxTrue == false {
@@ -58,14 +59,22 @@ final class FilterPresenter: FilterPresenterProtocol {
     }
     
     func checkIsAllSelectedNeedSet() -> Bool {
-       let messengersCheckbox = tmpIsSelected.dropFirst()
-       let allCheckboxTrue = messengersCheckbox.allSatisfy({$0 == true})
-       if tmpIsSelected[0] == false && allCheckboxTrue == true {
-           return true
-       } else {
-           return false
-       }
-   }
+        let messengersCheckbox = tmpIsSelected.dropFirst()
+        let allCheckboxTrue = messengersCheckbox.allSatisfy({$0 == true})
+        if tmpIsSelected[0] == false && allCheckboxTrue == true {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func checkConfirmButtonAccessability() {
+        var currentFilters: [Bool] = []
+        for i in 0..<tmpIsSelected.count {
+            currentFilters.append(messengerData[i].isSelected)
+        }
+        (tmpIsSelected != currentFilters) ? view?.makeConfirmButtonEnabled() : view?.makeConfirmButtonUnEnabled()
+    }
     
     func dropSelectAll() {
         tmpIsSelected[0] = false
