@@ -1,6 +1,6 @@
 import UIKit
 
-class UIButtonWithBluePoint: UIButton {
+class BlueRadioButton: UIButton {
     var bluePoint = UIView()
     var button = UIButton()
     
@@ -12,6 +12,7 @@ class UIButtonWithBluePoint: UIButton {
         button.layer.borderColor = MyColors.blue.cgColor
         button.backgroundColor = UIColor.clear
         button.tag = sortOption
+        button.addTarget(self.button, action: #selector(Self.radioButtonAction), for: .touchUpInside)
         onView.addSubview(button)
         NSLayoutConstraint.activate([
             button.centerYAnchor.constraint(equalTo: onView.centerYAnchor),
@@ -49,8 +50,7 @@ class UIButtonWithBluePoint: UIButton {
         bluePoint.isHidden = true
     }
     
-    @objc
-     func radioButtonAction() {
+    @objc func radioButtonAction() {
         bluePoint.isHidden.toggle()
     }
 }

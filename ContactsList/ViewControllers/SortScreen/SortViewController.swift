@@ -4,19 +4,19 @@ final class SortViewController: UIViewController {
     
     private let fromAtoZNameSortUIView = UIView()
     private let fromAtoZNameSortUILabel = UILabel()
-    private let fromAtoZNameSortRadioButton = UIButtonWithBluePoint()
+    private let fromAtoZNameSortRadioButton = BlueRadioButton()
     
     private let fromZtoANameSortUIView = UIView()
     private let fromZtoANameSortUILabel = UILabel()
-    private let fromZtoANameSortRadioButton = UIButtonWithBluePoint()
+    private let fromZtoANameSortRadioButton = BlueRadioButton()
     
     private let fromAtoZFaimilyNameSortUIView = UIView()
     private let fromAtoZFaimilyNameSortUILabel = UILabel()
-    private let fromAtoZFaimilyNameSortRadioButton = UIButtonWithBluePoint()
+    private let fromAtoZFaimilyNameSortRadioButton = BlueRadioButton()
     
     private let fromZtoAFaimilyNameSortUIView = UIView()
     private let fromZtoAFaimilyNameSortUILabel = UILabel()
-    private let fromZtoAFaimilyNameSortRadioButton = UIButtonWithBluePoint()
+    private let fromZtoAFaimilyNameSortRadioButton = BlueRadioButton()
     
     private var currentSortOption: Int = 0
     
@@ -52,9 +52,16 @@ final class SortViewController: UIViewController {
         configureSortUILabel(text: "По имени (Я-А / Z-A)", on: fromZtoANameSortUILabel, inView: fromZtoANameSortUIView)
         configureSortUILabel(text: "По фамилии (А-Я / A-Z)", on: fromAtoZFaimilyNameSortUILabel, inView: fromAtoZFaimilyNameSortUIView)
         configureSortUILabel(text: "По фамилии (Я-А / Z-A)", on: fromZtoAFaimilyNameSortUILabel, inView: fromZtoAFaimilyNameSortUIView)
+        
+//        fromAtoZNameSortRadioButton.button.addTarget(
+//            fromAtoZNameSortRadioButton.button,
+//            action: #selector(didTapFromAtoZNameSortRadioButton),
+//            for: .touchUpInside
+//        )
+        
     }
     
-    private func configureSortUIView(name label: UIView, prevLabel: UIView?, button: UIButtonWithBluePoint, sortOption: Int) {
+    private func configureSortUIView(name label: UIView, prevLabel: UIView?, button: BlueRadioButton, sortOption: Int) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = MyColors.black
         label.layer.cornerRadius = 24
@@ -76,7 +83,7 @@ final class SortViewController: UIViewController {
             ])
         }
         button.configureRadioButton(onView: label, sortOption: sortOption)
-        button.addTarget(self, action: #selector(Self.radioButtonAction), for: .touchUpInside)
+        //button.button.addTarget(button.button, action: #selector(didTapFromAtoZNameSortRadioButton), for: .touchUpInside)
     }
     
     
@@ -92,8 +99,8 @@ final class SortViewController: UIViewController {
         ])
     }
     
-    @objc private func radioButtonAction(_ sender: UIButton) {
-        guard let button = sender as? UIButtonWithBluePoint else {
+    @objc private func radioButtonAction( sender: UIButton) {
+        guard let button = sender as? BlueRadioButton else {
             return
         }
         
@@ -133,5 +140,15 @@ final class SortViewController: UIViewController {
             fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = true
             currentSortOption = 0
         }
+    }
+    
+    @objc
+    private func didTapFromAtoZNameSortRadioButton() {
+        fromAtoZNameSortRadioButton.bluePoint.isHidden = false
+        fromZtoANameSortRadioButton.bluePoint.isHidden = true
+        fromAtoZFaimilyNameSortRadioButton.bluePoint.isHidden = true
+        fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = true
+        currentSortOption = 1
+        print("🍎")
     }
 }
