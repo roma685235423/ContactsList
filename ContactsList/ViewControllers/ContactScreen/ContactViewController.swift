@@ -154,8 +154,8 @@ extension ContactViewController: UITableViewDelegate {
     @objc
     private func didTapSortButton() {
         let sortViewController = SortViewController()
-//        let filterPresenter = FilterPresenter()
-//        filterViewController.presenter = filterPresenter
+        let sortPresenter = SortPresenter()
+        sortViewController.presenter = sortPresenter
         sortViewController.modalPresentationStyle = .pageSheet
 //        filterViewController.transitionDelegate = self
         present(sortViewController, animated: true)
