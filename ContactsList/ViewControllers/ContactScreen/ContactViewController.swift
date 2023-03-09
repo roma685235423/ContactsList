@@ -19,7 +19,7 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     private var headerTextLabel = UILabel()
     private var cellId = String(describing: ContactCell.self)
     
-    // MARK: - Methods
+    // MARK: - Life cicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -39,6 +39,7 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     }
 }
 
+// MARK: - Extensions
 extension ContactViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         124
@@ -134,7 +135,7 @@ extension ContactViewController: UITableViewDelegate {
         configureSortButton()
         presenter?.view = self
         presenter?.loadData()
-        view.backgroundColor = MyColors.red 
+        view.backgroundColor = MyColors.fullBlack
         tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
         reloadTableData()
     }

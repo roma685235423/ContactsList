@@ -15,7 +15,7 @@
 		BA05D9AE29B75223001C5725 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9AD29B75223001C5725 /* Notification+Extension.swift */; };
 		BA31568E29B1F4E60092A0FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */; };
 		BA38D71329B7DCCB00285D51 /* SwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */; };
-		BA38D71629B90C3600285D51 /* UIButtonWithBluePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71529B90C3600285D51 /* UIButtonWithBluePoint.swift */; };
+		BA38D71629B90C3600285D51 /* BlueRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71529B90C3600285D51 /* BlueRadioButton.swift */; };
 		BA8F422329AE7F0F00567099 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422229AE7F0F00567099 /* AppDelegate.swift */; };
 		BA8F422529AE7F0F00567099 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422429AE7F0F00567099 /* SceneDelegate.swift */; };
 		BA8F422729AE7F0F00567099 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422629AE7F0F00567099 /* ContactViewController.swift */; };
@@ -66,7 +66,7 @@
 		BA05D9AD29B75223001C5725 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwipeInteractionController.swift; path = InteractionControllers/SwipeInteractionController.swift; sourceTree = "<group>"; };
-		BA38D71529B90C3600285D51 /* UIButtonWithBluePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonWithBluePoint.swift; sourceTree = "<group>"; };
+		BA38D71529B90C3600285D51 /* BlueRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueRadioButton.swift; sourceTree = "<group>"; };
 		BA8F421F29AE7F0F00567099 /* ContactsList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8F422229AE7F0F00567099 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA8F422429AE7F0F00567099 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 				BA8F427529B116E400567099 /* MyColors.swift */,
 				BA8F427829B1185F00567099 /* UIColorExtension.swift */,
 				BA05D9AD29B75223001C5725 /* Notification+Extension.swift */,
-				BA38D71529B90C3600285D51 /* UIButtonWithBluePoint.swift */,
+				BA38D71529B90C3600285D51 /* BlueRadioButton.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -444,7 +444,7 @@
 				BA8F425E29AF4C8200567099 /* Contact.swift in Sources */,
 				BA05D9A329B3AD52001C5725 /* FilterViewController.swift in Sources */,
 				BA8F427929B1185F00567099 /* UIColorExtension.swift in Sources */,
-				BA38D71629B90C3600285D51 /* UIButtonWithBluePoint.swift in Sources */,
+				BA38D71629B90C3600285D51 /* BlueRadioButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

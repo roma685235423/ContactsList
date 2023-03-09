@@ -1,7 +1,12 @@
 import UIKit
 
+protocol BlueRadioButtonDelegate: AnyObject {
+    func radioButtonAction(sender: BlueRadioButton)
+}
+
+
 final class SortViewController: UIViewController {
-    
+    // MARK: - Properties
     private let fromAtoZNameSortUIView = UIView()
     private let fromAtoZNameSortUILabel = UILabel()
     private let fromAtoZNameSortRadioButton = BlueRadioButton()
@@ -18,11 +23,10 @@ final class SortViewController: UIViewController {
     private let fromZtoAFaimilyNameSortUILabel = UILabel()
     private let fromZtoAFaimilyNameSortRadioButton = BlueRadioButton()
     
-    private var currentSortOption: Int = 0
-    
+    // MARK: - Life cicle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = MyColors.white
+        view.backgroundColor = MyColors.fullBlack
         configureSortUIView(
             name: fromAtoZNameSortUIView,
             prevLabel: nil,
@@ -52,15 +56,9 @@ final class SortViewController: UIViewController {
         configureSortUILabel(text: "По имени (Я-А / Z-A)", on: fromZtoANameSortUILabel, inView: fromZtoANameSortUIView)
         configureSortUILabel(text: "По фамилии (А-Я / A-Z)", on: fromAtoZFaimilyNameSortUILabel, inView: fromAtoZFaimilyNameSortUIView)
         configureSortUILabel(text: "По фамилии (Я-А / Z-A)", on: fromZtoAFaimilyNameSortUILabel, inView: fromZtoAFaimilyNameSortUIView)
-        
-//        fromAtoZNameSortRadioButton.button.addTarget(
-//            fromAtoZNameSortRadioButton.button,
-//            action: #selector(didTapFromAtoZNameSortRadioButton),
-//            for: .touchUpInside
-//        )
-        
     }
     
+    // MARK: - Methods
     private func configureSortUIView(name label: UIView, prevLabel: UIView?, button: BlueRadioButton, sortOption: Int) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = MyColors.black
@@ -82,8 +80,7 @@ final class SortViewController: UIViewController {
                 label.topAnchor.constraint(equalTo: prevLabel!.bottomAnchor, constant: 4)
             ])
         }
-        button.configureRadioButton(onView: label, sortOption: sortOption)
-        //button.button.addTarget(button.button, action: #selector(didTapFromAtoZNameSortRadioButton), for: .touchUpInside)
+        button.configureRadioButton(onView: label, sortOption: sortOption, delegate: self)
     }
     
     
@@ -98,57 +95,56 @@ final class SortViewController: UIViewController {
             label.leftAnchor.constraint(equalTo: inView.leftAnchor, constant: 16)
         ])
     }
-    
-    @objc private func radioButtonAction( sender: UIButton) {
-        guard let button = sender as? BlueRadioButton else {
-            return
+}
+
+// MARK: - BlueRadioButtonDelegate
+extension SortViewController: BlueRadioButtonDelegate {
+    func radioButtonAction(sender: BlueRadioButton) {
+        if sender == fromAtoZNameSortRadioButton {
+            changeButtonsPointIsHidden(sortOption: sender.button.tag)
+        } else if sender == fromZtoANameSortRadioButton {
+            changeButtonsPointIsHidden(sortOption: sender.button.tag)
+        } else if sender == fromAtoZFaimilyNameSortRadioButton {
+            changeButtonsPointIsHidden(sortOption: sender.button.tag)
+        } else if sender == fromZtoAFaimilyNameSortRadioButton {
+            changeButtonsPointIsHidden(sortOption: sender.button.tag)
         }
-        
-        switch button.tag {
+    }
+}
+
+// MARK: - Extension
+extension SortViewController {
+    private func changeButtonsPointIsHidden(sortOption: Int) {
+        switch sortOption {
         case 1:
             // Обработка нажатия на кнопку "По имени (А-Я / A-Z)"
             fromAtoZNameSortRadioButton.bluePoint.isHidden = false
             fromZtoANameSortRadioButton.bluePoint.isHidden = true
             fromAtoZFaimilyNameSortRadioButton.bluePoint.isHidden = true
             fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = true
-            currentSortOption = 1
         case 2:
             // Обработка нажатия на кнопку "По имени (Я-А / Z-A)"
             fromAtoZNameSortRadioButton.bluePoint.isHidden = true
             fromZtoANameSortRadioButton.bluePoint.isHidden = false
             fromAtoZFaimilyNameSortRadioButton.bluePoint.isHidden = true
             fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = true
-            currentSortOption = 2
         case 3:
             // Обработка нажатия на кнопку "По фамилии (А-Я / A-Z)"
             fromAtoZNameSortRadioButton.bluePoint.isHidden = true
             fromZtoANameSortRadioButton.bluePoint.isHidden = true
             fromAtoZFaimilyNameSortRadioButton.bluePoint.isHidden = false
             fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = true
-            currentSortOption = 3
         case 4:
             // Обработка нажатия на кнопку "По фамилии (Я-А / Z-A)"
             fromAtoZNameSortRadioButton.bluePoint.isHidden = true
             fromZtoANameSortRadioButton.bluePoint.isHidden = true
             fromAtoZFaimilyNameSortRadioButton.bluePoint.isHidden = true
             fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = false
-            currentSortOption = 4
         default:
             fromAtoZNameSortRadioButton.bluePoint.isHidden = true
             fromZtoANameSortRadioButton.bluePoint.isHidden = true
             fromAtoZFaimilyNameSortRadioButton.bluePoint.isHidden = true
             fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = true
-            currentSortOption = 0
         }
-    }
-    
-    @objc
-    private func didTapFromAtoZNameSortRadioButton() {
-        fromAtoZNameSortRadioButton.bluePoint.isHidden = false
-        fromZtoANameSortRadioButton.bluePoint.isHidden = true
-        fromAtoZFaimilyNameSortRadioButton.bluePoint.isHidden = true
-        fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = true
-        currentSortOption = 1
-        print("🍎")
     }
 }
