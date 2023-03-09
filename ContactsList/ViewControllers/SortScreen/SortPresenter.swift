@@ -15,6 +15,7 @@ final class SortPresenter: SortPresenterProtocol {
     var view: SortViewControllerProtocol?
     private var currentSortOption: Int = 1
     private var previosSortOptions: Int = 1
+    var delegate: SortViewDelegate?
     
     // MARK: - Methods
     func viewWillAppear() {
@@ -64,11 +65,13 @@ final class SortPresenter: SortPresenterProtocol {
     func didTapConfirmButton() {
         previosSortOptions = currentSortOption
         checkConfirmButtonAccessability()
+        delegate?.sortIndicator(isHidden: false)
     }
     
     func didTapResetButton() {
         currentSortOption = previosSortOptions
         changeButtonsPointIsHidden(sortOption: currentSortOption)
         checkConfirmButtonAccessability()
+        delegate?.sortIndicator(isHidden: true)
     }
 }

@@ -11,10 +11,13 @@ protocol FilterPresenterProtocol {
     func checkIsAllSelectedNeedSet() -> Bool
     func dropSelectAll()
     func setSelectAll()
+    func didTapConfirmButton()
+    func didTapResetButton()
 }
 
 final class FilterPresenter: FilterPresenterProtocol {
     var view: FilterViewControllerProtocol?
+    var delegate: FilterViewDelegate?
     
     var messengerData: [ContactCellContent] = [
         ContactCellContent(name: "Выбрать все", iconName: nil),
@@ -70,5 +73,13 @@ final class FilterPresenter: FilterPresenterProtocol {
     
     func setSelectAll() {
         tmpIsSelected[0] = true
+    }
+    
+    func didTapConfirmButton() {
+        delegate?.filterIndicator(isHidden: false)
+    }
+    
+    func didTapResetButton() {
+        delegate?.filterIndicator(isHidden: true)
     }
 }

@@ -6,6 +6,14 @@ protocol ContactViewControllerProtocol {
     func reloadTableData()
 }
 
+protocol SortViewDelegate {
+    func sortIndicator(isHidden: Bool)
+}
+
+protocol FilterViewDelegate{
+    func filterIndicator(isHidden: Bool)
+}
+
 
 final class ContactViewController: UIViewController & ContactViewControllerProtocol{
     // MARK: - Properties
@@ -18,6 +26,8 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     private var sortButton = UIButton()
     private var headerTextLabel = UILabel()
     private var cellId = String(describing: ContactCell.self)
+    private let filterIndicator = UIView()
+    private let sortIndicator = UIView()
     
     // MARK: - Life cicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -126,6 +136,24 @@ extension ContactViewController: UITableViewDelegate {
         ])
     }
     
+    private func configureSortIndicator(indicator: UIView, on button: UIButton) {
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.frame = CGRect(x: 0, y: 0, width: 16, height: 16)
+        indicator.layer.cornerRadius = indicator.bounds.size.width / 2
+        indicator.layer.borderWidth = 2
+        indicator.clipsToBounds = true
+        indicator.layer.borderColor = MyColors.fullBlack.cgColor
+        indicator.backgroundColor = MyColors.red
+        indicator.isHidden = true
+        button.addSubview(indicator)
+        NSLayoutConstraint.activate([
+            indicator.heightAnchor.constraint(equalToConstant: 16),
+            indicator.widthAnchor.constraint(equalToConstant: 16),
+            indicator.centerYAnchor.constraint(equalTo: button.topAnchor),
+            indicator.centerXAnchor.constraint(equalTo: button.rightAnchor)
+        ])
+    }
+    
     private func initialSettings() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -138,6 +166,8 @@ extension ContactViewController: UITableViewDelegate {
         view.backgroundColor = MyColors.fullBlack
         tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
         reloadTableData()
+        configureSortIndicator(indicator: filterIndicator, on: filterButton)
+        configureSortIndicator(indicator: sortIndicator, on: sortButton)
     }
     
     
@@ -146,8 +176,8 @@ extension ContactViewController: UITableViewDelegate {
         let filterViewController = FilterViewController()
         let filterPresenter = FilterPresenter()
         filterViewController.presenter = filterPresenter
+        filterPresenter.delegate = self
         filterViewController.modalPresentationStyle = .pageSheet
-        filterViewController.transitionDelegate = self
         present(filterViewController, animated: true)
     }
     
@@ -156,6 +186,7 @@ extension ContactViewController: UITableViewDelegate {
         let sortViewController = SortViewController()
         let sortPresenter = SortPresenter()
         sortViewController.presenter = sortPresenter
+        sortPresenter.delegate = self
         sortViewController.modalPresentationStyle = .pageSheet
 //        filterViewController.transitionDelegate = self
         present(sortViewController, animated: true)
@@ -188,3 +219,16 @@ extension ContactViewController: FilterTransitionDelegate {
         }
     }
 }
+
+extension ContactViewController: FilterViewDelegate {
+    func filterIndicator(isHidden: Bool) {
+        filterIndicator.isHidden = isHidden
+    }
+}
+
+extension ContactViewController: SortViewDelegate {
+    func sortIndicator(isHidden: Bool) {
+        sortIndicator.isHidden = isHidden
+    }
+}
+

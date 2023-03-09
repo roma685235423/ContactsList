@@ -124,13 +124,13 @@ final class SortViewController: UIViewController {
     
     private func confugureResetButton() {
         resetButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.layer.masksToBounds = true
         view.addSubview(resetButton)
         resetButton.setTitle("Cбросить", for: .normal)
         resetButton.titleLabel?.font = UIFont(name: "SFProText-Medium", size: 16)
         resetButton.titleLabel?.textColor = MyColors.white
         resetButton.backgroundColor = MyColors.fullBlack
         resetButton.layer.cornerRadius = 24
-        resetButton.layer.masksToBounds = true
         resetButton.addTarget(self, action: #selector(Self.didTapResetButton), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
@@ -169,6 +169,7 @@ final class SortViewController: UIViewController {
     @objc
     private func didTapResetButton() {
         presenter?.didTapResetButton()
+        self.dismiss(animated: true)
     }
 }
 

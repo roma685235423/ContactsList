@@ -16,11 +16,6 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
     private let resetButton = UIButton()
     private let conformButton = UIButton()
     private let cellID = String(describing: FilterViewCell.self)
-    weak var transitionDelegate: FilterTransitionDelegate?
-    var startColor = MyColors.fullBlack
-    var endColor = MyColors.gray
-    
-    var interactionController: SwipeInteractionController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,14 +30,8 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
 //            guard let percentComplite = self?.transitionCoordinator?.percentComplete else { return }
 //            self?.transitionDelegate?.changeBackgroundToGray(progress: percentComplite)
 //        }, completion: nil)
-        transitionDelegate?.changeBackgroundToGray()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        transitionDelegate?.changeBackgroundToFullBlack()
-        //transitionDelegate?.changeBackgroundToGray()
-    }
     
     
     func initialSettings() {
@@ -51,27 +40,22 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
         presenter?.view = self
         view.backgroundColor = MyColors.fullBlack
         filterTableView.register(FilterViewCell.self, forCellReuseIdentifier: cellID)
+        configureFilterTableView()
         confugureResetButton()
         confugureConformButton()
-        configureFilterTableView()
         filterTableView.reloadData()
-    }
-    
-    func updateBackgroundColor(offsetY: CGFloat) {
-        let progress = min(max(offsetY / 100, 0), 1) // ограничиваем прогресс от 0 до 1
-        let newColor = UIColor.interpolate(from: startColor, to: endColor, progress: progress)
-        self.view.backgroundColor = newColor
     }
     
     private func confugureResetButton() {
         resetButton.translatesAutoresizingMaskIntoConstraints = false
+        resetButton.layer.masksToBounds = true
         view.addSubview(resetButton)
         resetButton.setTitle("Cбросить", for: .normal)
         resetButton.titleLabel?.font = UIFont(name: "SFProText-Medium", size: 16)
         resetButton.titleLabel?.textColor = MyColors.white
         resetButton.backgroundColor = MyColors.fullBlack
         resetButton.layer.cornerRadius = 24
-        resetButton.layer.masksToBounds = true
+        resetButton.addTarget(self, action: #selector(Self.didTapResetButton), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             resetButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
@@ -83,13 +67,14 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
     
     private func confugureConformButton() {
         conformButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(conformButton)
         conformButton.setTitle("Применить", for: .normal)
         conformButton.titleLabel?.font = UIFont(name: "SFProText-Medium", size: 16)
         conformButton.titleLabel?.textColor = MyColors.white
         conformButton.backgroundColor = MyColors.blue
         conformButton.layer.cornerRadius = 24
         conformButton.layer.masksToBounds = true
-        view.addSubview(conformButton)
+        conformButton.addTarget(self, action: #selector(Self.didTapConfirmButton), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             conformButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
@@ -109,8 +94,22 @@ final class FilterViewController: UIViewController & FilterViewControllerProtoco
             filterTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 46),
             filterTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             filterTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            filterTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 52)
+            filterTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -52)
         ])
+    }
+    
+    @objc
+    private func didTapConfirmButton() {
+        presenter?.didTapConfirmButton()
+        print("\n✅")
+        self.dismiss(animated: true)
+    }
+    
+    @objc
+    private func didTapResetButton() {
+        print("\n🟢")
+        presenter?.didTapResetButton()
+        self.dismiss(animated: true)
     }
 }
 
