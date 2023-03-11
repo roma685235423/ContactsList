@@ -17,6 +17,8 @@
 		BA38D71329B7DCCB00285D51 /* SwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */; };
 		BA38D71629B90C3600285D51 /* BlueRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71529B90C3600285D51 /* BlueRadioButton.swift */; };
 		BA38D71829BA341C00285D51 /* SortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71729BA341C00285D51 /* SortPresenter.swift */; };
+		BA6B9D6929BB97AE0075C5F1 /* ContactSortService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9D6829BB97AE0075C5F1 /* ContactSortService.swift */; };
+		BA6B9D6C29BB99DB0075C5F1 /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9D6B29BB99DB0075C5F1 /* SortOption.swift */; };
 		BA8F422329AE7F0F00567099 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422229AE7F0F00567099 /* AppDelegate.swift */; };
 		BA8F422529AE7F0F00567099 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422429AE7F0F00567099 /* SceneDelegate.swift */; };
 		BA8F422729AE7F0F00567099 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F422629AE7F0F00567099 /* ContactViewController.swift */; };
@@ -69,6 +71,8 @@
 		BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwipeInteractionController.swift; path = InteractionControllers/SwipeInteractionController.swift; sourceTree = "<group>"; };
 		BA38D71529B90C3600285D51 /* BlueRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueRadioButton.swift; sourceTree = "<group>"; };
 		BA38D71729BA341C00285D51 /* SortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPresenter.swift; sourceTree = "<group>"; };
+		BA6B9D6829BB97AE0075C5F1 /* ContactSortService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortService.swift; sourceTree = "<group>"; };
+		BA6B9D6B29BB99DB0075C5F1 /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOption.swift; sourceTree = "<group>"; };
 		BA8F421F29AE7F0F00567099 /* ContactsList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8F422229AE7F0F00567099 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA8F422429AE7F0F00567099 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 			children = (
 				BA05D9AB29B66F99001C5725 /* SortViewController.swift */,
 				BA38D71729BA341C00285D51 /* SortPresenter.swift */,
+				BA38D71529B90C3600285D51 /* BlueRadioButton.swift */,
 			);
 			path = SortScreen;
 			sourceTree = "<group>";
@@ -156,6 +161,23 @@
 				BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */,
 			);
 			path = InteractionController;
+			sourceTree = "<group>";
+		};
+		BA6B9D6729BB97500075C5F1 /* ContactSort */ = {
+			isa = PBXGroup;
+			children = (
+				BA6B9D6829BB97AE0075C5F1 /* ContactSortService.swift */,
+				BA6B9D6B29BB99DB0075C5F1 /* SortOption.swift */,
+			);
+			path = ContactSort;
+			sourceTree = "<group>";
+		};
+		BA6B9D6A29BB97C20075C5F1 /* ContactService */ = {
+			isa = PBXGroup;
+			children = (
+				BA8F426429AF834400567099 /* ContactService.swift */,
+			);
+			path = ContactService;
 			sourceTree = "<group>";
 		};
 		BA8F421629AE7F0F00567099 = {
@@ -255,7 +277,8 @@
 		BA8F425F29AF4EC300567099 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BA8F426429AF834400567099 /* ContactService.swift */,
+				BA6B9D6A29BB97C20075C5F1 /* ContactService */,
+				BA6B9D6729BB97500075C5F1 /* ContactSort */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -287,7 +310,6 @@
 				BA8F427529B116E400567099 /* MyColors.swift */,
 				BA8F427829B1185F00567099 /* UIColorExtension.swift */,
 				BA05D9AD29B75223001C5725 /* Notification+Extension.swift */,
-				BA38D71529B90C3600285D51 /* BlueRadioButton.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -435,6 +457,7 @@
 				BA8F426129AF5C0F00567099 /* SplashScreenPresenter.swift in Sources */,
 				BA38D71829BA341C00285D51 /* SortPresenter.swift in Sources */,
 				BA38D71329B7DCCB00285D51 /* SwipeInteractionController.swift in Sources */,
+				BA6B9D6929BB97AE0075C5F1 /* ContactSortService.swift in Sources */,
 				BA8F422729AE7F0F00567099 /* ContactViewController.swift in Sources */,
 				BA05D9AE29B75223001C5725 /* Notification+Extension.swift in Sources */,
 				BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */,
@@ -442,6 +465,7 @@
 				BA8F426829B0EF4400567099 /* GetAccessViewController.swift in Sources */,
 				BA8F422329AE7F0F00567099 /* AppDelegate.swift in Sources */,
 				BA8F422529AE7F0F00567099 /* SceneDelegate.swift in Sources */,
+				BA6B9D6C29BB99DB0075C5F1 /* SortOption.swift in Sources */,
 				BA05D9A029B3A19B001C5725 /* ContactCellContent.swift in Sources */,
 				BA8F425829AEA19500567099 /* ContactPresenter.swift in Sources */,
 				BA8F426529AF834400567099 /* ContactService.swift in Sources */,

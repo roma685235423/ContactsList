@@ -1,7 +1,7 @@
 import UIKit
 // MARK: - Protocols
 protocol BlueRadioButtonDelegate: AnyObject {
-    func radioButtonAction(sender: BlueRadioButton)
+    func radioButtonAction(sortOption: sortOption)
 }
 
 protocol SortViewControllerProtocol: AnyObject {
@@ -50,25 +50,25 @@ final class SortViewController: UIViewController {
             name: fromAtoZNameSortUIView,
             prevLabel: nil,
             button: fromAtoZNameSortRadioButton,
-            sortOption: 1
+            option: sortOption.byNameAToZ
         )
         configureSortUIView(
             name: fromZtoANameSortUIView,
             prevLabel: fromAtoZNameSortUIView,
             button: fromZtoANameSortRadioButton,
-            sortOption: 2
+            option: sortOption.byNameZToA
         )
         configureSortUIView(
             name: fromAtoZFaimilyNameSortUIView,
             prevLabel: fromZtoANameSortUIView,
             button: fromAtoZFaimilyNameSortRadioButton,
-            sortOption: 3
+            option: sortOption.byFaimilyNameAToZ
         )
         configureSortUIView(
             name: fromZtoAFaimilyNameSortUIView,
             prevLabel: fromAtoZFaimilyNameSortUIView,
             button: fromZtoAFaimilyNameSortRadioButton,
-            sortOption: 4
+            option: sortOption.byFaimilyNameZToA
         )
         
         configureSortUILabel(text: "По имени (А-Я / A-Z)", on: fromAtoZNameSortUILabel, inView: fromAtoZNameSortUIView)
@@ -85,7 +85,7 @@ final class SortViewController: UIViewController {
     }
     
     // MARK: - Methods
-    private func configureSortUIView(name label: UIView, prevLabel: UIView?, button: BlueRadioButton, sortOption: Int) {
+    private func configureSortUIView(name label: UIView, prevLabel: UIView?, button: BlueRadioButton, option: sortOption) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = MyColors.black
         label.layer.cornerRadius = 24
@@ -106,7 +106,7 @@ final class SortViewController: UIViewController {
                 label.topAnchor.constraint(equalTo: prevLabel!.bottomAnchor, constant: 4)
             ])
         }
-        button.configureRadioButton(onView: label, sortOption: sortOption, delegate: self)
+        button.configureRadioButton(onView: label, sortOption: option, delegate: self)
     }
     
     
@@ -175,16 +175,8 @@ final class SortViewController: UIViewController {
 
 // MARK: - BlueRadioButtonDelegate
 extension SortViewController: BlueRadioButtonDelegate {
-    func radioButtonAction(sender: BlueRadioButton) {
-        if sender == fromAtoZNameSortRadioButton {
-            presenter?.changeButtonsPointIsHidden(sortOption: sender.button.tag)
-        } else if sender == fromZtoANameSortRadioButton {
-            presenter?.changeButtonsPointIsHidden(sortOption: sender.button.tag)
-        } else if sender == fromAtoZFaimilyNameSortRadioButton {
-            presenter?.changeButtonsPointIsHidden(sortOption: sender.button.tag)
-        } else if sender == fromZtoAFaimilyNameSortRadioButton {
-            presenter?.changeButtonsPointIsHidden(sortOption: sender.button.tag)
-        }
+    func radioButtonAction(sortOption: sortOption) {
+        presenter?.changeButtonsPointIsHidden(sortOption: sortOption)
         presenter?.checkConfirmButtonAccessability()
     }
 }

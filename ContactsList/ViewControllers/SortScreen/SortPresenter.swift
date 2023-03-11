@@ -3,7 +3,7 @@ import UIKit
 protocol SortPresenterProtocol {
     var view: SortViewControllerProtocol? { get set }
     func checkConfirmButtonAccessability()
-    func changeButtonsPointIsHidden(sortOption: Int)
+    func changeButtonsPointIsHidden(sortOption: sortOption)
     func viewWillAppear()
     func didTapConfirmButton()
     func didTapResetButton()
@@ -13,8 +13,8 @@ protocol SortPresenterProtocol {
 final class SortPresenter: SortPresenterProtocol {
     // MARK: - Properties
     var view: SortViewControllerProtocol?
-    private var currentSortOption: Int = 1
-    private var previosSortOptions: Int = 1
+    private var currentSortOption = sortOption.byNameAToZ
+    private var previosSortOptions = sortOption.byNameAToZ
     var delegate: SortViewDelegate?
     
     // MARK: - Methods
@@ -27,38 +27,38 @@ final class SortPresenter: SortPresenterProtocol {
         currentSortOption != previosSortOptions ? view?.makeConfirmButtonEnabled() : view?.makeConfirmButtonUnEnabled()
     }
     
-    func changeButtonsPointIsHidden(sortOption: Int) {
+    func changeButtonsPointIsHidden(sortOption: sortOption) {
         switch sortOption {
-        case 1:
+        case .byNameAToZ:
             // Обработка нажатия на кнопку "По имени (А-Я / A-Z)"
             view?.fromAtoZNameSortRadioButtonBluePoint(isHidden: false)
             view?.fromZtoANameSortRadioButtonBluePoint(isHidden: true)
             view?.fromAtoZFaimilyNameSortRadioButtonBluePoint(isHidden: true)
             view?.fromZtoAFaimilyNameSortRadioButtonBluePoint(isHidden: true)
-            currentSortOption = 1
-        case 2:
+            currentSortOption = .byNameAToZ
+        case .byNameZToA:
             // Обработка нажатия на кнопку "По имени (Я-А / Z-A)"
             view?.fromAtoZNameSortRadioButtonBluePoint(isHidden: true)
             view?.fromZtoANameSortRadioButtonBluePoint(isHidden: false)
             view?.fromAtoZFaimilyNameSortRadioButtonBluePoint(isHidden: true)
             view?.fromZtoAFaimilyNameSortRadioButtonBluePoint(isHidden: true)
-            currentSortOption = 2
-        case 3:
+            currentSortOption = .byNameZToA
+        case .byFaimilyNameAToZ:
             // Обработка нажатия на кнопку "По фамилии (А-Я / A-Z)"
             view?.fromAtoZNameSortRadioButtonBluePoint(isHidden: true)
             view?.fromZtoANameSortRadioButtonBluePoint(isHidden: true)
             view?.fromAtoZFaimilyNameSortRadioButtonBluePoint(isHidden: false)
             view?.fromZtoAFaimilyNameSortRadioButtonBluePoint(isHidden: true)
-            currentSortOption = 3
-        case 4:
+            currentSortOption = .byFaimilyNameAToZ
+        case .byFaimilyNameZToA:
             // Обработка нажатия на кнопку "По фамилии (Я-А / Z-A)"
             view?.fromAtoZNameSortRadioButtonBluePoint(isHidden: true)
             view?.fromZtoANameSortRadioButtonBluePoint(isHidden: true)
             view?.fromAtoZFaimilyNameSortRadioButtonBluePoint(isHidden: true)
             view?.fromZtoAFaimilyNameSortRadioButtonBluePoint(isHidden: false)
-            currentSortOption = 4
+            currentSortOption = .byFaimilyNameZToA
         default:
-            currentSortOption = 0
+            currentSortOption = .cancel
         }
     }
     
