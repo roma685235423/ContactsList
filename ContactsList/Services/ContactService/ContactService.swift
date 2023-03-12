@@ -2,15 +2,16 @@ import MessageUI
 import Contacts
 
 protocol ContactService {
-    func loadContacts(completion: @escaping ([Contact]) -> Void)
+    func getContacts(completion: @escaping ([ContactFromStore]) -> Void)
 }
 
 final class ContactServiceImpl: ContactService {
     // MARK: - Properties
     private let contactStore = CNContactStore()
+    private var contactsFromStore: [ContactFromStore] = []
     
     // MARK: - Methods
-    func loadContacts(completion: @escaping (([Contact]) -> Void)) {
+    func getContacts(completion: @escaping (([ContactFromStore]) -> Void)) {
         let request = CNContactFetchRequest(keysToFetch: [
             CNContactGivenNameKey,
             CNContactFamilyNameKey,
@@ -31,11 +32,13 @@ final class ContactServiceImpl: ContactService {
                     let photoData = cnContact.imageData
                     
                     let phone = phoneLabeledValue?.value.stringValue ?? "No mobile phone number"
-                    return Contact(
-                        name: "\(cnContact.givenName) \(cnContact.familyName)",
+                    let contact = ContactFromStore(
+                        name: cnContact.givenName,
+                        faimilyName: cnContact.familyName,
                         phone: phone,
                         photoData: photoData
                     )
+                    return contact
                 }
                 completion(contacts)
             } catch {

@@ -7,6 +7,7 @@ protocol ContactViewControllerProtocol {
 }
 
 protocol SortViewDelegate {
+    //var contactService: ContactService? { get set }
     func sortIndicator(isHidden: Bool)
 }
 
@@ -19,6 +20,12 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     // MARK: - Properties
     var presenter: ContactViewPresenterProtocol?
     var tableView = UITableView()
+    
+    private var filterViewController = FilterViewController()
+    private var filterPresenter = FilterPresenter()
+    
+    private var sortViewController = SortViewController()
+    private var sortPresenter = SortPresenter()
     
     var swipeInteractionController: SwipeInteractionController?
     
@@ -64,7 +71,6 @@ extension ContactViewController: UITableViewDataSource {
         guard let contactCell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactCell else {
             return UITableViewCell()
         }
-        
         let contact = self.presenter?.contactCellModels[indexPath.row]
         let contactName = "\(contact?.name ?? "")"
         let contactPhone = "\(contact?.phone ?? "")"
@@ -173,8 +179,6 @@ extension ContactViewController: UITableViewDelegate {
     
     @objc
     private func didTapFilterButton() {
-        let filterViewController = FilterViewController()
-        let filterPresenter = FilterPresenter()
         filterViewController.presenter = filterPresenter
         filterPresenter.delegate = self
         filterViewController.modalPresentationStyle = .pageSheet
@@ -183,12 +187,9 @@ extension ContactViewController: UITableViewDelegate {
     
     @objc
     private func didTapSortButton() {
-        let sortViewController = SortViewController()
-        let sortPresenter = SortPresenter()
         sortViewController.presenter = sortPresenter
         sortPresenter.delegate = self
         sortViewController.modalPresentationStyle = .pageSheet
-//        filterViewController.transitionDelegate = self
         present(sortViewController, animated: true)
     }
 }

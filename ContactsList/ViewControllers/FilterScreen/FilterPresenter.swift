@@ -5,18 +5,20 @@ protocol FilterPresenterProtocol {
     var messengerData: [ContactCellContent] { get set }
     var tmpIsSelected: [Bool] { get }
     func copyIsSelectedToTmp()
-    func selectAll()
-    func changTempIsSelectedFor(row: Int)
+    func copyIsSelectedFromTmp()
+    func changeTempIsSelectedFor(row: Int)
     func checkIsAllSelectedNeedDrop() -> Bool
     func checkIsAllSelectedNeedSet() -> Bool
     func dropSelectAll()
     func setSelectAll()
+    func cangeSelectAll()
     func didTapConfirmButton()
     func didTapResetButton()
     func checkConfirmButtonAccessability()
 }
 
 final class FilterPresenter: FilterPresenterProtocol {
+    
     var view: FilterViewControllerProtocol?
     var delegate: FilterViewDelegate?
     
@@ -32,16 +34,21 @@ final class FilterPresenter: FilterPresenterProtocol {
     ]
     var tmpIsSelected: [Bool] = []
     
-    
     func copyIsSelectedToTmp() {
         tmpIsSelected = messengerData.map{$0.isSelected}
     }
     
-    func changTempIsSelectedFor(row: Int) {
+    func copyIsSelectedFromTmp() {
+        for i in 0..<tmpIsSelected.count {
+            messengerData[i].isSelected = tmpIsSelected[i]
+        }
+    }
+    
+    func changeTempIsSelectedFor(row: Int) {
         tmpIsSelected[row] = !tmpIsSelected[row]
     }
     
-    func selectAll() {
+    func cangeSelectAll() {
         let allSelected = tmpIsSelected[0]
         for i in 1..<tmpIsSelected.count {
             tmpIsSelected[i] = allSelected
@@ -85,10 +92,17 @@ final class FilterPresenter: FilterPresenterProtocol {
     }
     
     func didTapConfirmButton() {
+        copyIsSelectedFromTmp()
+        checkConfirmButtonAccessability()
         delegate?.filterIndicator(isHidden: false)
     }
     
     func didTapResetButton() {
+        dropSelectAll()
+        cangeSelectAll()
+        copyIsSelectedFromTmp()
+        checkConfirmButtonAccessability()
+        view?.updateButtonsImage()
         delegate?.filterIndicator(isHidden: true)
     }
 }

@@ -4,6 +4,7 @@ protocol FilterViewControllerProtocol {
     var presenter: FilterPresenterProtocol? { get set }
     func makeConfirmButtonEnabled()
     func makeConfirmButtonUnEnabled()
+    func updateButtonsImage()
 }
 
 protocol FilterTransitionDelegate: AnyObject {
@@ -28,11 +29,18 @@ final class FilterViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        guard let transitionCoordinator = self.transitionCoordinator else { return }
-//        transitionCoordinator.animate(alongsideTransition: { [ weak self ] context in
-//            guard let percentComplite = self?.transitionCoordinator?.percentComplete else { return }
-//            self?.transitionDelegate?.changeBackgroundToGray(progress: percentComplite)
-//        }, completion: nil)
+        //        guard let transitionCoordinator = self.transitionCoordinator else { return }
+        //        transitionCoordinator.animate(alongsideTransition: { [ weak self ] context in
+        //            guard let percentComplite = self?.transitionCoordinator?.percentComplete else { return }
+        //            self?.transitionDelegate?.changeBackgroundToGray(progress: percentComplite)
+        //        }, completion: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        presenter?.copyIsSelectedToTmp()
+        updateButtonsImage()
+        presenter?.checkConfirmButtonAccessability()
     }
     
     
@@ -110,6 +118,7 @@ final class FilterViewController: UIViewController {
     @objc
     private func didTapResetButton() {
         presenter?.didTapResetButton()
+        changeAllButtonsImage()
         self.dismiss(animated: true)
     }
 }
@@ -133,21 +142,16 @@ extension FilterViewController: UITableViewDataSource & UITableViewDelegate {
         cell.configureCellContent(content: cellContent)
         return cell
     }
-    
-    func selectAllButtonDidTap() {
-        presenter?.selectAll()
-        filterTableView.reloadData()
-    }
 }
 
 extension FilterViewController: FilterCellDelegate {
     func filterCheckboxButtonClicked(cell:FilterViewCell) {
         guard let indexPath = filterTableView.indexPath(for: cell),
               let presenter = presenter else { return }
-        presenter.changTempIsSelectedFor(row: indexPath.row)
+        presenter.changeTempIsSelectedFor(row: indexPath.row)
         if indexPath.row == 0 {
-            presenter.selectAll()
-            changeAllButtonsImage(cell: cell)
+            presenter.cangeSelectAll()
+            changeAllButtonsImage()
         } else {
             if presenter.checkIsAllSelectedNeedDrop() == true {
                 dropSelectAllButtonState()
@@ -161,7 +165,7 @@ extension FilterViewController: FilterCellDelegate {
 
 
 extension FilterViewController {
-    func changeAllButtonsImage(cell: FilterViewCell) {
+    func changeAllButtonsImage() {
         guard let tmpIsSelected = presenter?.tmpIsSelected else { return }
         let selectAll: Bool = tmpIsSelected[0]
         for visibleCell in filterTableView.visibleCells {
@@ -174,6 +178,18 @@ extension FilterViewController {
                 filterCell.changeCheckboxButtonImage(isSelected: isSelected)
                 filterCell.isSelected = selectAll
             }
+        }
+    }
+    
+
+    func updateButtonsImage() {
+        guard let tmpIsSelected = presenter?.tmpIsSelected else { return }
+        for visibleCell in filterTableView.visibleCells {
+            guard let filterCell = visibleCell as? FilterViewCell,
+                  let indexPath = filterTableView.indexPath(for: filterCell) else { continue }
+            let isSelected = tmpIsSelected[indexPath.row]
+            filterCell.changeCheckboxButtonImage(isSelected: isSelected)
+            filterCell.isSelected = isSelected
         }
     }
     

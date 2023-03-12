@@ -13,13 +13,15 @@ protocol SortPresenterProtocol {
 final class SortPresenter: SortPresenterProtocol {
     // MARK: - Properties
     var view: SortViewControllerProtocol?
-    private var currentSortOption = sortOption.byNameAToZ
-    private var previosSortOptions = sortOption.byNameAToZ
     var delegate: SortViewDelegate?
+    var contactPresenterDelegate: ContactPresenterDelegate?
+    
+    private var currentSortOption = sortOption.cancel
+    private var previosSortOptions = sortOption.cancel
     
     // MARK: - Methods
     func viewWillAppear() {
-        changeButtonsPointIsHidden(sortOption: currentSortOption)
+        changeButtonsPointIsHidden(sortOption: previosSortOptions)
         checkConfirmButtonAccessability()
     }
     
@@ -57,7 +59,12 @@ final class SortPresenter: SortPresenterProtocol {
             view?.fromAtoZFaimilyNameSortRadioButtonBluePoint(isHidden: true)
             view?.fromZtoAFaimilyNameSortRadioButtonBluePoint(isHidden: false)
             currentSortOption = .byFaimilyNameZToA
-        default:
+            // Обработка нажатия на кнопку "Сброс"
+        case .cancel:
+            view?.fromAtoZNameSortRadioButtonBluePoint(isHidden: true)
+            view?.fromZtoANameSortRadioButtonBluePoint(isHidden: true)
+            view?.fromAtoZFaimilyNameSortRadioButtonBluePoint(isHidden: true)
+            view?.fromZtoAFaimilyNameSortRadioButtonBluePoint(isHidden: true)
             currentSortOption = .cancel
         }
     }
@@ -66,12 +73,15 @@ final class SortPresenter: SortPresenterProtocol {
         previosSortOptions = currentSortOption
         checkConfirmButtonAccessability()
         delegate?.sortIndicator(isHidden: false)
+        contactPresenterDelegate?.changeSortOption(option: currentSortOption)
     }
     
     func didTapResetButton() {
+        previosSortOptions = sortOption.cancel
         currentSortOption = previosSortOptions
         changeButtonsPointIsHidden(sortOption: currentSortOption)
         checkConfirmButtonAccessability()
         delegate?.sortIndicator(isHidden: true)
+        contactPresenterDelegate?.changeSortOption(option: currentSortOption)
     }
 }
