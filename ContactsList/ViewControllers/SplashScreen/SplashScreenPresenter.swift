@@ -48,6 +48,22 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
             guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
             let contactsView = ContactViewController()
             let contactPresenter = ContactPresenter()
+            
+            let filterViewController = FilterViewController()
+            let filterPresenter = FilterPresenter()
+            
+            let sortViewController = SortViewController()
+            let sortPresenter = SortPresenter()
+            
+            sortViewController.presenter = sortPresenter
+            sortPresenter.delegate = contactsView
+            sortPresenter.contactPresenterDelegate = contactPresenter
+            
+            filterViewController.presenter = filterPresenter
+            filterPresenter.delegate = contactsView
+            contactsView.sortViewController = sortViewController
+            contactsView.filterViewController = filterViewController
+            
             contactsView.presenter = contactPresenter
             window.rootViewController = contactsView
         }

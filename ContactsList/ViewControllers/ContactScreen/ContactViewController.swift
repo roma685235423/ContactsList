@@ -7,7 +7,6 @@ protocol ContactViewControllerProtocol {
 }
 
 protocol SortViewDelegate {
-    //var contactService: ContactService? { get set }
     func sortIndicator(isHidden: Bool)
 }
 
@@ -21,11 +20,9 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     var presenter: ContactViewPresenterProtocol?
     var tableView = UITableView()
     
-    private var filterViewController = FilterViewController()
-    private var filterPresenter = FilterPresenter()
+    var filterViewController = FilterViewController()
     
-    private var sortViewController = SortViewController()
-    private var sortPresenter = SortPresenter()
+    var sortViewController = SortViewController()
     
     var swipeInteractionController: SwipeInteractionController?
     
@@ -179,16 +176,12 @@ extension ContactViewController: UITableViewDelegate {
     
     @objc
     private func didTapFilterButton() {
-        filterViewController.presenter = filterPresenter
-        filterPresenter.delegate = self
         filterViewController.modalPresentationStyle = .pageSheet
         present(filterViewController, animated: true)
     }
     
     @objc
     private func didTapSortButton() {
-        sortViewController.presenter = sortPresenter
-        sortPresenter.delegate = self
         sortViewController.modalPresentationStyle = .pageSheet
         present(sortViewController, animated: true)
     }
