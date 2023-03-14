@@ -4,6 +4,7 @@ struct Contact {
     let name: String
     let phone: String
     let photoData: Data?
+    let messengers: MessengersIconNames
 }
 
 struct ContactFromStore {
@@ -11,4 +12,15 @@ struct ContactFromStore {
     let faimilyName: String
     let phone: String
     let photoData: Data?
+    let messengers: MessengersIconNames
+}
+
+struct MessengersIconNames {
+    var phone: String?
+    var email: String?
+    var telegram: String?
+    var whatsApp: String?
+    var viber: String?
+    var signal: String?
+    var threema: String?
 }

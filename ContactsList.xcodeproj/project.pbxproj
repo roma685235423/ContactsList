@@ -12,7 +12,6 @@
 		BA05D9A529B3B1E6001C5725 /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A429B3B1E6001C5725 /* FilterViewCell.swift */; };
 		BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */; };
 		BA05D9AC29B66F99001C5725 /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9AB29B66F99001C5725 /* SortViewController.swift */; };
-		BA05D9AE29B75223001C5725 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9AD29B75223001C5725 /* Notification+Extension.swift */; };
 		BA31568E29B1F4E60092A0FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */; };
 		BA38D71329B7DCCB00285D51 /* SwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */; };
 		BA38D71629B90C3600285D51 /* BlueRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71529B90C3600285D51 /* BlueRadioButton.swift */; };
@@ -65,7 +64,6 @@
 		BA05D9A429B3B1E6001C5725 /* FilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
 		BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		BA05D9AB29B66F99001C5725 /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
-		BA05D9AD29B75223001C5725 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwipeInteractionController.swift; path = InteractionControllers/SwipeInteractionController.swift; sourceTree = "<group>"; };
 		BA38D71529B90C3600285D51 /* BlueRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueRadioButton.swift; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 			children = (
 				BA8F427529B116E400567099 /* MyColors.swift */,
 				BA8F427829B1185F00567099 /* UIColorExtension.swift */,
-				BA05D9AD29B75223001C5725 /* Notification+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -447,7 +444,6 @@
 				BA38D71829BA341C00285D51 /* SortPresenter.swift in Sources */,
 				BA38D71329B7DCCB00285D51 /* SwipeInteractionController.swift in Sources */,
 				BA8F422729AE7F0F00567099 /* ContactViewController.swift in Sources */,
-				BA05D9AE29B75223001C5725 /* Notification+Extension.swift in Sources */,
 				BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */,
 				BA8F425B29AF46EC00567099 /* SplashScreenViewController.swift in Sources */,
 				BA8F426829B0EF4400567099 /* GetAccessViewController.swift in Sources */,

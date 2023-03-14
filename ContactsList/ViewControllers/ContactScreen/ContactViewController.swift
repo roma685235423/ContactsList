@@ -65,14 +65,12 @@ extension ContactViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let contactCell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactCell else {
+        guard let contactCell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactCell,
+              let contact = self.presenter?.contactCellModels[indexPath.row]
+        else {
             return UITableViewCell()
         }
-        let contact = self.presenter?.contactCellModels[indexPath.row]
-        let contactName = "\(contact?.name ?? "")"
-        let contactPhone = "\(contact?.phone ?? "")"
-        let contactData = contact?.photoData
-        contactCell.configureCell(name: contactName, phone: contactPhone, imageData: contactData)
+        contactCell.configureCell(contact: contact)
         return contactCell
     }
 }

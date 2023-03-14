@@ -41,7 +41,12 @@ final class ContactPresenter: ContactViewPresenterProtocol {
     }
     
     private func convertToContacts(from contacts: [ContactFromStore]) -> [Contact] {
-        return contacts.map { Contact(name: "\($0.name) \($0.faimilyName)", phone: $0.phone, photoData: $0.photoData) }
+        return contacts.map { Contact(
+            name: "\($0.name) \($0.faimilyName)",
+            phone: $0.phone,
+            photoData: $0.photoData,
+            messengers: $0.messengers
+        ) }
     }
     
     private func changeContactArrayWith(option: sortOption, storeContacts: [ContactFromStore]) -> [Contact] {

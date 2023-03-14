@@ -9,14 +9,15 @@ final class ContactCell: UITableViewCell {
     private let contactCellView = UIView()
     
     // MARK: - Methods
-    func configureCell(name: String, phone: String, imageData: Data?) {
+    func configureCell(contact: Contact) {
         self.selectionStyle = .none
         self.contentView.backgroundColor = MyColors.fullBlack
-        let image = configureImage(imageData: imageData)
+        let photoData = contact.photoData
+        let image = configureImage(imageData: photoData)
         configureContactCellView()
         configureContactImage(image: image)
-        configureContactName(name: name)
-        configureContactPhone(phone: phone)
+        configureContactName(name: contact.name)
+        configureContactPhone(phone: contact.phone)
     }
     
     private func configureContactCellView() {
@@ -39,6 +40,7 @@ final class ContactCell: UITableViewCell {
         contactImage.clipsToBounds = true
         contactImage.image = image
         contactCellView.addSubview(contactImage)
+        contactImage.contentMode = .scaleAspectFill
         
         NSLayoutConstraint.activate([
             contactImage.leftAnchor.constraint(equalTo: contactCellView.leftAnchor , constant: 12),
@@ -54,9 +56,10 @@ final class ContactCell: UITableViewCell {
         contactName.text = name
         contactName.textColor = MyColors.white
         contactCellView.addSubview(contactName)
-        
+
         NSLayoutConstraint.activate([
             contactName.leftAnchor.constraint(equalTo: contactImage.rightAnchor, constant: 12),
+            contactName.rightAnchor.constraint(equalTo: contactCellView.rightAnchor, constant: -5),
             contactName.topAnchor.constraint(equalTo: contactCellView.topAnchor, constant: 14),
             contactName.heightAnchor.constraint(equalToConstant: 35)
         ])
@@ -73,6 +76,13 @@ final class ContactCell: UITableViewCell {
             contactPhone.leftAnchor.constraint(equalTo: contactName.leftAnchor),
             contactPhone.topAnchor.constraint(equalTo: contactName.bottomAnchor, constant: 8)
         ])
+    }
+    
+    private func configureIconImageView(iconName: String) -> UIImageView {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: iconName)
+        return imageView
     }
     
     private func configureImage(imageData: Data?) -> UIImage {
