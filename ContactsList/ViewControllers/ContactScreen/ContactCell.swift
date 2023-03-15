@@ -7,17 +7,19 @@ final class ContactCell: UITableViewCell {
     private var contactName = UILabel()
     private var contactPhone = UILabel()
     private let contactCellView = UIView()
+    private var icons: [UIImageView] = []
     
     // MARK: - Methods
     func configureCell(contact: Contact) {
         self.selectionStyle = .none
         self.contentView.backgroundColor = MyColors.fullBlack
         let photoData = contact.photoData
-        let image = configureImage(imageData: photoData)
-        configureContactCellView()
-        configureContactImage(image: image)
-        configureContactName(name: contact.name)
-        configureContactPhone(phone: contact.phone)
+        let image = self.configureImage(imageData: photoData)
+        self.configureContactCellView()
+        self.configureContactImage(image: image)
+        self.configureContactName(name: contact.name)
+        self.configureContactPhone(phone: contact.phone)
+        self.configureIcons(messengers: contact.messengers)
     }
     
     private func configureContactCellView() {
@@ -56,7 +58,7 @@ final class ContactCell: UITableViewCell {
         contactName.text = name
         contactName.textColor = MyColors.white
         contactCellView.addSubview(contactName)
-
+        
         NSLayoutConstraint.activate([
             contactName.leftAnchor.constraint(equalTo: contactImage.rightAnchor, constant: 12),
             contactName.rightAnchor.constraint(equalTo: contactCellView.rightAnchor, constant: -5),
@@ -78,10 +80,17 @@ final class ContactCell: UITableViewCell {
         ])
     }
     
+    
     private func configureIconImageView(iconName: String) -> UIImageView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.frame.size = CGSize(width: 24, height: 24)
         imageView.image = UIImage(named: iconName)
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = imageView.frame.height / 2
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = MyColors.black.cgColor
+        imageView.clipsToBounds = true
         return imageView
     }
     
@@ -91,74 +100,45 @@ final class ContactCell: UITableViewCell {
         }
         return UIImage(data: data)!
     }
+    
+    private func configureIcons(messengers: MessengersIconNames){
+        var iconConstraints = [NSLayoutConstraint]()
+        var icons = [UIImageView]()
+        let messengerStrings = [
+            messengers.telegram,
+            messengers.whatsApp,
+            messengers.viber,
+            messengers.signal,
+            messengers.threema,
+            messengers.phone,
+            messengers.email
+        ].compactMap { $0 }
+        for messenger in messengerStrings {
+            let icon = messenger
+            let imageView = self.configureIconImageView(iconName: icon)
+            icons.append(imageView)
+        }
+        for (index, iconView) in icons.enumerated() {
+            
+            if index == 0 {
+                contactCellView.addSubview(iconView)
+                iconConstraints.append(iconView.leftAnchor.constraint(equalTo: contactImage.rightAnchor, constant: 12))
+            } else {
+                let previousIcon = icons[index-1]
+                contactCellView.insertSubview(iconView, belowSubview: previousIcon)
+                iconConstraints.append(iconView.leftAnchor.constraint(equalTo: previousIcon.rightAnchor, constant: -4))
+            }
+            iconConstraints.append(iconView.bottomAnchor.constraint(equalTo: contactImage.bottomAnchor))
+            iconConstraints.append(iconView.heightAnchor.constraint(equalToConstant: 24))
+            iconConstraints.append(iconView.widthAnchor.constraint(equalToConstant: 24))
+        }
+        NSLayoutConstraint.activate(iconConstraints)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        for iconView in contactCellView.subviews where iconView is UIImageView {
+            iconView.removeFromSuperview()
+        }
+    }
 }
-
-/*
- private func configureIcons(messengers: messengersIconNames) {
-     let iconSize: CGFloat = 30
-     var iconConstraints = [NSLayoutConstraint]()
-     var icons = [UIImageView]()
-
-     if let telegramIcon = messengers.telegram {
-         let imageView = createIconImageView(iconName: telegramIcon, iconSize: iconSize)
-         icons.append(imageView)
-     }
-
-     if let whatsAppIcon = messengers.whatsApp {
-         let imageView = createIconImageView(iconName: whatsAppIcon, iconSize: iconSize)
-         icons.append(imageView)
-     }
-
-     if let viberIcon = messengers.viber {
-         let imageView = createIconImageView(iconName: viberIcon, iconSize: iconSize)
-         icons.append(imageView)
-     }
-
-     if let signalIcon = messengers.signal {
-         let imageView = createIconImageView(iconName: signalIcon, iconSize: iconSize)
-         icons.append(imageView)
-     }
-
-     if let threemaIcon = messengers.threema {
-         let imageView = createIconImageView(iconName: threemaIcon, iconSize: iconSize)
-         icons.append(imageView)
-     }
-
-     if let phoneIcon = messengers.phone {
-         let imageView = createIconImageView(iconName: phoneIcon, iconSize: iconSize)
-         icons.append(imageView)
-     }
-
-     if let emailIcon = messengers.email {
-         let imageView = createIconImageView(iconName: emailIcon, iconSize: iconSize)
-         icons.append(imageView)
-     }
-
-     for (index, iconView) in icons.enumerated() {
-         contactCellView.addSubview(iconView)
-
-         if index == 0 {
-             iconConstraints.append(iconView.leftAnchor.constraint(equalTo: contactImage.rightAnchor, constant: 12))
-         } else {
-             let previousIcon = icons[index-1]
-             iconConstraints.append(iconView.leftAnchor.constraint(equalTo: previousIcon.rightAnchor, constant: 8))
-         }
-
-         iconConstraints.append(iconView.centerYAnchor.constraint(equalTo: contactCellView.centerYAnchor))
-         iconConstraints.append(iconView.heightAnchor.constraint(equalToConstant: iconSize))
-         iconConstraints.append(iconView.widthAnchor.constraint(equalToConstant: iconSize))
-     }
-
-     NSLayoutConstraint.activate(iconConstraints)
- }
-
- private func createIconImageView(iconName: String, iconSize: CGFloat) -> UIImageView {
-     let imageView = UIImageView()
-     imageView.translatesAutoresizingMaskIntoConstraints = false
-     imageView.image = UIImage(named: iconName)
-     imageView.contentMode = .scaleAspectFit
-     imageView.layer.cornerRadius = iconSize / 2
-     imageView.clipsToBounds = true
-     return imageView
- }
- */
