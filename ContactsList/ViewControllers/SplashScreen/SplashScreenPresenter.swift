@@ -61,10 +61,13 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
             
             filterViewController.presenter = filterPresenter
             filterPresenter.delegate = contactsView
+            filterPresenter.contactPresenterDelegate = contactPresenter
+            
             contactsView.sortViewController = sortViewController
             contactsView.filterViewController = filterViewController
             
             contactsView.presenter = contactPresenter
+            contactsView.presenter?.loadData()
             window.rootViewController = contactsView
         }
     }

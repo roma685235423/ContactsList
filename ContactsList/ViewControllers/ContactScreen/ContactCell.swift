@@ -8,18 +8,17 @@ final class ContactCell: UITableViewCell {
     private var contactPhone = UILabel()
     private let contactCellView = UIView()
     private var icons: [UIImageView] = []
-    
     // MARK: - Methods
     func configureCell(contact: Contact) {
-        self.selectionStyle = .none
-        self.contentView.backgroundColor = MyColors.fullBlack
+        selectionStyle = .none
+        contentView.backgroundColor = MyColors.fullBlack
         let photoData = contact.photoData
         let image = self.configureImage(imageData: photoData)
-        self.configureContactCellView()
-        self.configureContactImage(image: image)
-        self.configureContactName(name: contact.name)
-        self.configureContactPhone(phone: contact.phone)
-        self.configureIcons(messengers: contact.messengers)
+        configureContactCellView()
+        configureContactImage(image: image)
+        configureContactName(name: contact.name)
+        configureContactPhone(phone: contact.phone)
+        configureIcons(messengers: contact.messengers)
     }
     
     private func configureContactCellView() {
@@ -28,7 +27,6 @@ final class ContactCell: UITableViewCell {
         contactCellView.layer.cornerRadius = 24
         contactCellView.clipsToBounds = true
         self.addSubview(contactCellView)
-        
         NSLayoutConstraint.activate([
             contactCellView.heightAnchor.constraint(equalToConstant: 120),
             contactCellView.widthAnchor.constraint(equalToConstant: self.frame.width)
@@ -43,7 +41,6 @@ final class ContactCell: UITableViewCell {
         contactImage.image = image
         contactCellView.addSubview(contactImage)
         contactImage.contentMode = .scaleAspectFill
-        
         NSLayoutConstraint.activate([
             contactImage.leftAnchor.constraint(equalTo: contactCellView.leftAnchor , constant: 12),
             contactImage.centerYAnchor.constraint(equalTo: contactCellView.centerYAnchor),
@@ -58,7 +55,6 @@ final class ContactCell: UITableViewCell {
         contactName.text = name
         contactName.textColor = MyColors.white
         contactCellView.addSubview(contactName)
-        
         NSLayoutConstraint.activate([
             contactName.leftAnchor.constraint(equalTo: contactImage.rightAnchor, constant: 12),
             contactName.rightAnchor.constraint(equalTo: contactCellView.rightAnchor, constant: -5),
@@ -73,13 +69,11 @@ final class ContactCell: UITableViewCell {
         contactPhone.textColor = MyColors.gray
         contactPhone.text = phone
         contactCellView.addSubview(contactPhone)
-        
         NSLayoutConstraint.activate([
             contactPhone.leftAnchor.constraint(equalTo: contactName.leftAnchor),
             contactPhone.topAnchor.constraint(equalTo: contactName.bottomAnchor, constant: 8)
         ])
     }
-    
     
     private func configureIconImageView(iconName: String) -> UIImageView {
         let imageView = UIImageView()
@@ -119,7 +113,6 @@ final class ContactCell: UITableViewCell {
             icons.append(imageView)
         }
         for (index, iconView) in icons.enumerated() {
-            
             if index == 0 {
                 contactCellView.addSubview(iconView)
                 iconConstraints.append(iconView.leftAnchor.constraint(equalTo: contactImage.rightAnchor, constant: 12))
@@ -137,8 +130,8 @@ final class ContactCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        for iconView in contactCellView.subviews where iconView is UIImageView {
-            iconView.removeFromSuperview()
+        for views in contactCellView.subviews {
+            views.removeFromSuperview()
         }
     }
 }

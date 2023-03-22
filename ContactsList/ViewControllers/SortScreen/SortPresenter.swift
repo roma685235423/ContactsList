@@ -14,7 +14,7 @@ final class SortPresenter: SortPresenterProtocol {
     // MARK: - Properties
     var view: SortViewControllerProtocol?
     var delegate: SortViewDelegate?
-    var contactPresenterDelegate: ContactPresenterDelegate?
+    var contactPresenterDelegate: ContactSortDelegate?
     
     private var currentSortOption = sortOption.cancel
     private var previosSortOptions = sortOption.cancel
@@ -72,7 +72,7 @@ final class SortPresenter: SortPresenterProtocol {
     func didTapConfirmButton() {
         previosSortOptions = currentSortOption
         checkConfirmButtonAccessability()
-        delegate?.sortIndicator(isHidden: false)
+        currentSortOption != .cancel ? delegate?.sortIndicator(isHidden: false) : delegate?.sortIndicator(isHidden: true)
         contactPresenterDelegate?.changeSortOption(option: currentSortOption)
     }
     
@@ -80,8 +80,7 @@ final class SortPresenter: SortPresenterProtocol {
         previosSortOptions = sortOption.cancel
         currentSortOption = previosSortOptions
         changeButtonsPointIsHidden(sortOption: currentSortOption)
-        checkConfirmButtonAccessability()
-        delegate?.sortIndicator(isHidden: true)
-        contactPresenterDelegate?.changeSortOption(option: currentSortOption)
+        view?.makeConfirmButtonEnabled()
+        contactPresenterDelegate?.resetSort()
     }
 }

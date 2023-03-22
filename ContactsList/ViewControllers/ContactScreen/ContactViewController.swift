@@ -17,14 +17,11 @@ protocol FilterViewDelegate{
 
 final class ContactViewController: UIViewController & ContactViewControllerProtocol{
     // MARK: - Properties
+    //    var swipeInteractionController: SwipeInteractionController?
     var presenter: ContactViewPresenterProtocol?
     var tableView = UITableView()
-    
     var filterViewController = FilterViewController()
-    
     var sortViewController = SortViewController()
-    
-    var swipeInteractionController: SwipeInteractionController?
     
     private var filterButton = UIButton()
     private var sortButton = UIButton()
@@ -42,7 +39,7 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
         initialSettings()
-        swipeInteractionController = SwipeInteractionController(viewController: self)
+        //        swipeInteractionController = SwipeInteractionController(viewController: self)
     }
     
     func reloadTableData() {
@@ -53,31 +50,10 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     }
 }
 
-// MARK: - Extensions
-extension ContactViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        124
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let cellModelsCount = self.presenter?.contactCellModels.count else {fatalError("Invalid models configuration")}
-        return cellModelsCount
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let contactCell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactCell,
-              let contact = self.presenter?.contactCellModels[indexPath.row]
-        else {
-            return UITableViewCell()
-        }
-        contactCell.configureCell(contact: contact)
-        return contactCell
-    }
-}
-
-
-extension ContactViewController: UITableViewDelegate {
+extension ContactViewController {
     private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         tableView.backgroundColor = .clear
@@ -112,7 +88,6 @@ extension ContactViewController: UITableViewDelegate {
         filterButton.tintColor = MyColors.white
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(filterButton)
-        
         NSLayoutConstraint.activate([
             filterButton.centerYAnchor.constraint(equalTo: headerTextLabel.centerYAnchor),
             filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18),
@@ -128,7 +103,6 @@ extension ContactViewController: UITableViewDelegate {
         sortButton.tintColor = MyColors.white
         sortButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sortButton)
-        
         NSLayoutConstraint.activate([
             sortButton.centerYAnchor.constraint(equalTo: headerTextLabel.centerYAnchor),
             sortButton.trailingAnchor.constraint(equalTo: filterButton.leadingAnchor, constant: -20),
@@ -156,16 +130,13 @@ extension ContactViewController: UITableViewDelegate {
     }
     
     private func initialSettings() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        view.backgroundColor = MyColors.fullBlack
+        tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
+        presenter?.view = self
         configureTableView()
         createHeaderText()
         configureFilterButton()
         configureSortButton()
-        presenter?.view = self
-        presenter?.loadData()
-        view.backgroundColor = MyColors.fullBlack
-        tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
         reloadTableData()
         configureSortIndicator(indicator: filterIndicator, on: filterButton)
         configureSortIndicator(indicator: sortIndicator, on: sortButton)
@@ -187,27 +158,99 @@ extension ContactViewController: UITableViewDelegate {
 
 extension ContactViewController: FilterTransitionDelegate {
     func changeBackgroundToGray() {
-                let grayToFullBlackAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
-                grayToFullBlackAnimation.values = [
-                    MyColors.fullBlack,
-                    MyColors.gray
-                ]
-                grayToFullBlackAnimation.timeOffset = 0.1
-                grayToFullBlackAnimation.duration = 2
-                view.layer.add(grayToFullBlackAnimation, forKey: "backgroundColor")
-//        let newColor = UIColor.interpolate(from: MyColors.fullBlack, to: MyColors.fullBlack, progress: progress)
-//        print(progress)
-//        self.view.backgroundColor = newColor
-//        DispatchQueue.main.async { [ weak self ] in
-//            guard let self = self else { return }
-//            self.view.backgroundColor = MyColors.gray
-//        }
+        let grayToFullBlackAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
+        grayToFullBlackAnimation.values = [
+            MyColors.fullBlack,
+            MyColors.gray
+        ]
+        grayToFullBlackAnimation.timeOffset = 0.1
+        grayToFullBlackAnimation.duration = 2
+        view.layer.add(grayToFullBlackAnimation, forKey: "backgroundColor")
+        //        let newColor = UIColor.interpolate(from: MyColors.fullBlack, to: MyColors.fullBlack, progress: progress)
+        //        print(progress)
+        //        self.view.backgroundColor = newColor
+        //        DispatchQueue.main.async { [ weak self ] in
+        //            guard let self = self else { return }
+        //            self.view.backgroundColor = MyColors.gray
+        //        }
     }
     
     func changeBackgroundToFullBlack() {
         DispatchQueue.main.async { [ weak self ] in
             guard let self = self else { return }
             self.view.backgroundColor = MyColors.fullBlack
+        }
+    }
+}
+
+// MARK: - Extensions
+extension ContactViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        124
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let cellModelsCount = self.presenter?.contactCellModels.count else {fatalError("Invalid models configuration")}
+        return cellModelsCount
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let contactCell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactCell,
+              let contact = self.presenter?.contactCellModels[indexPath.row]
+        else {
+            return UITableViewCell()
+        }
+        contactCell.configureCell(contact: contact)
+        return contactCell
+    }
+}
+
+
+extension ContactViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAlert = UIAlertController(
+            title: nil,
+            message: "Уверены что хотите удалить контакт?",
+            preferredStyle: .actionSheet
+        )
+        
+        let alertAction = UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
+            self?.presenter?.removeCellModel(index: indexPath.row)
+            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+        deleteAlert.addAction(alertAction)
+        
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: "Удалить"
+        ) { [weak self]  _, _, completion in
+            self?.present(deleteAlert, animated: true)
+        }
+        
+        deleteAlert.addAction(UIAlertAction(title: "Отмена", style: .cancel) { _ in
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
+        })
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+        for subview in tableView.subviews {
+            if NSStringFromClass(type(of: subview)) == "_UITableViewCellSwipeContainerView" {
+                for swipeContainerSubview in subview.subviews {
+                    if NSStringFromClass(type(of: swipeContainerSubview)) == "UISwipeActionPullView" {
+                        swipeContainerSubview.backgroundColor = .systemRed
+                        swipeContainerSubview.layer.cornerRadius = 24
+                        swipeContainerSubview.clipsToBounds = true
+                        for case let button as UIButton in swipeContainerSubview.subviews {
+                            button.layer.cornerRadius = 24
+                            button.clipsToBounds = true
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -223,4 +266,3 @@ extension ContactViewController: SortViewDelegate {
         sortIndicator.isHidden = isHidden
     }
 }
-

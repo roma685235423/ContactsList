@@ -27,15 +27,6 @@ final class FilterViewController: UIViewController {
         presenter?.checkConfirmButtonAccessability()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //        guard let transitionCoordinator = self.transitionCoordinator else { return }
-        //        transitionCoordinator.animate(alongsideTransition: { [ weak self ] context in
-        //            guard let percentComplite = self?.transitionCoordinator?.percentComplete else { return }
-        //            self?.transitionDelegate?.changeBackgroundToGray(progress: percentComplite)
-        //        }, completion: nil)
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         presenter?.copyIsSelectedToTmp()
@@ -119,7 +110,6 @@ final class FilterViewController: UIViewController {
     private func didTapResetButton() {
         presenter?.didTapResetButton()
         changeAllButtonsImage()
-        self.dismiss(animated: true)
     }
 }
 
@@ -128,13 +118,13 @@ extension FilterViewController: UITableViewDataSource & UITableViewDelegate {
         68
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let cellModelsCount = self.presenter?.messengerData.count else {fatalError("Invalid models configuration")}
+        guard let cellModelsCount = self.presenter?.messengerFiltersData.count else {fatalError("Invalid models configuration")}
         return cellModelsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = filterTableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? FilterViewCell,
-              let cellContent = presenter?.messengerData[indexPath.row]
+              let cellContent = presenter?.messengerFiltersData[indexPath.row]
         else {
             return UITableViewCell()
         }

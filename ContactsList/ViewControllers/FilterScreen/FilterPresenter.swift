@@ -2,7 +2,7 @@ import UIKit
 
 protocol FilterPresenterProtocol {
     var view: FilterViewControllerProtocol? { get set }
-    var messengerData: [ContactCellContent] { get set }
+    var messengerFiltersData: [ContactCellContent] { get set }
     var tmpIsSelected: [Bool] { get }
     func copyIsSelectedToTmp()
     func copyIsSelectedFromTmp()
@@ -18,11 +18,11 @@ protocol FilterPresenterProtocol {
 }
 
 final class FilterPresenter: FilterPresenterProtocol {
-    
+    var contactPresenterDelegate: ContactFilterDelegate?
     var view: FilterViewControllerProtocol?
     var delegate: FilterViewDelegate?
     
-    var messengerData: [ContactCellContent] = [
+    var messengerFiltersData: [ContactCellContent] = [
         ContactCellContent(name: "Выбрать все", iconName: nil),
         ContactCellContent(name: "Telegram", iconName: "telegramSqr"),
         ContactCellContent(name: "WhatsApp", iconName: "whatsappSqr"),
@@ -35,12 +35,12 @@ final class FilterPresenter: FilterPresenterProtocol {
     var tmpIsSelected: [Bool] = []
     
     func copyIsSelectedToTmp() {
-        tmpIsSelected = messengerData.map{$0.isSelected}
+        tmpIsSelected = messengerFiltersData.map{$0.isSelected}
     }
     
     func copyIsSelectedFromTmp() {
         for i in 0..<tmpIsSelected.count {
-            messengerData[i].isSelected = tmpIsSelected[i]
+            messengerFiltersData[i].isSelected = tmpIsSelected[i]
         }
     }
     
@@ -78,7 +78,7 @@ final class FilterPresenter: FilterPresenterProtocol {
     func checkConfirmButtonAccessability() {
         var currentFilters: [Bool] = []
         for i in 0..<tmpIsSelected.count {
-            currentFilters.append(messengerData[i].isSelected)
+            currentFilters.append(messengerFiltersData[i].isSelected)
         }
         (tmpIsSelected != currentFilters) ? view?.makeConfirmButtonEnabled() : view?.makeConfirmButtonUnEnabled()
     }
@@ -95,14 +95,16 @@ final class FilterPresenter: FilterPresenterProtocol {
         copyIsSelectedFromTmp()
         checkConfirmButtonAccessability()
         delegate?.filterIndicator(isHidden: false)
+        contactPresenterDelegate?.changeFilterOption(filters: messengerFiltersData)
     }
     
     func didTapResetButton() {
         dropSelectAll()
         cangeSelectAll()
         copyIsSelectedFromTmp()
-        checkConfirmButtonAccessability()
+        view?.makeConfirmButtonEnabled()
         view?.updateButtonsImage()
+        contactPresenterDelegate?.resetFilter()
         delegate?.filterIndicator(isHidden: true)
     }
 }

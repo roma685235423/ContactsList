@@ -35,7 +35,7 @@ final class ContactServiceImpl: ContactService {
                     let phoneIconName = (phone == "No mobile phone number" ? nil : "Phone")
                     let photoData = cnContact.imageData
                     let emailIconName = cnContact.emailAddresses.isEmpty ? nil : "Email"
-                    let social = MessengersIconNames(
+                    let messengers = MessengersIconNames(
                         telegram: cnContact.socialProfiles.first(where: { $0.value.service == "Telegram" })?.value.service,
                         whatsApp: cnContact.socialProfiles.first(where: { $0.value.service == "WhatsApp" })?.value.service,
                         viber: cnContact.socialProfiles.first(where: { $0.value.service == "Viber" })?.value.service,
@@ -49,7 +49,7 @@ final class ContactServiceImpl: ContactService {
                         faimilyName: cnContact.familyName,
                         phone: phone,
                         photoData: photoData,
-                        messengers: social
+                        messengers: messengers
                     )
                     return contact
                 }

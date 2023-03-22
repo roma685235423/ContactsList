@@ -75,7 +75,6 @@ final class SortViewController: UIViewController {
         configureSortUILabel(text: "По имени (Я-А / Z-A)", on: fromZtoANameSortUILabel, inView: fromZtoANameSortUIView)
         configureSortUILabel(text: "По фамилии (А-Я / A-Z)", on: fromAtoZFaimilyNameSortUILabel, inView: fromAtoZFaimilyNameSortUIView)
         configureSortUILabel(text: "По фамилии (Я-А / Z-A)", on: fromZtoAFaimilyNameSortUILabel, inView: fromZtoAFaimilyNameSortUIView)
-        
         confugureResetButton()
         confugureConformButton()
     }
@@ -169,7 +168,6 @@ final class SortViewController: UIViewController {
     @objc
     private func didTapResetButton() {
         presenter?.didTapResetButton()
-        self.dismiss(animated: true)
     }
 }
 
