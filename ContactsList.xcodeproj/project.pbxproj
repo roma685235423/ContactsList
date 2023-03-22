@@ -13,7 +13,6 @@
 		BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */; };
 		BA05D9AC29B66F99001C5725 /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA05D9AB29B66F99001C5725 /* SortViewController.swift */; };
 		BA31568E29B1F4E60092A0FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */; };
-		BA38D71329B7DCCB00285D51 /* SwipeInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */; };
 		BA38D71629B90C3600285D51 /* BlueRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71529B90C3600285D51 /* BlueRadioButton.swift */; };
 		BA38D71829BA341C00285D51 /* SortPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D71729BA341C00285D51 /* SortPresenter.swift */; };
 		BA6B9D6C29BB99DB0075C5F1 /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B9D6B29BB99DB0075C5F1 /* SortOption.swift */; };
@@ -65,7 +64,6 @@
 		BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenter.swift; sourceTree = "<group>"; };
 		BA05D9AB29B66F99001C5725 /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
 		BA31568D29B1F4E60092A0FC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwipeInteractionController.swift; path = InteractionControllers/SwipeInteractionController.swift; sourceTree = "<group>"; };
 		BA38D71529B90C3600285D51 /* BlueRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueRadioButton.swift; sourceTree = "<group>"; };
 		BA38D71729BA341C00285D51 /* SortPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPresenter.swift; sourceTree = "<group>"; };
 		BA6B9D6B29BB99DB0075C5F1 /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOption.swift; sourceTree = "<group>"; };
@@ -151,14 +149,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		BA38D70D29B7D32600285D51 /* InteractionController */ = {
-			isa = PBXGroup;
-			children = (
-				BA38D71229B7DCCB00285D51 /* SwipeInteractionController.swift */,
-			);
-			path = InteractionController;
-			sourceTree = "<group>";
-		};
 		BA6B9D6A29BB97C20075C5F1 /* ContactService */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,7 +214,6 @@
 		BA8F425529AEA13B00567099 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				BA38D70D29B7D32600285D51 /* InteractionController */,
 				BA05D9AA29B66F73001C5725 /* SortScreen */,
 				BA05D9A129B3ACB4001C5725 /* FilterScreen */,
 				BA8F426629B0EED100567099 /* GetAccessScreen */,
@@ -442,7 +431,6 @@
 				BA8F422D29AE7F0F00567099 /* ContactsList.xcdatamodeld in Sources */,
 				BA8F426129AF5C0F00567099 /* SplashScreenPresenter.swift in Sources */,
 				BA38D71829BA341C00285D51 /* SortPresenter.swift in Sources */,
-				BA38D71329B7DCCB00285D51 /* SwipeInteractionController.swift in Sources */,
 				BA8F422729AE7F0F00567099 /* ContactViewController.swift in Sources */,
 				BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */,
 				BA8F425B29AF46EC00567099 /* SplashScreenViewController.swift in Sources */,

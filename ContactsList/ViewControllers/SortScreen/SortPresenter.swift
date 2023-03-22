@@ -77,10 +77,8 @@ final class SortPresenter: SortPresenterProtocol {
     }
     
     func didTapResetButton() {
-        previosSortOptions = sortOption.cancel
-        currentSortOption = previosSortOptions
+        currentSortOption = sortOption.cancel
         changeButtonsPointIsHidden(sortOption: currentSortOption)
         view?.makeConfirmButtonEnabled()
-        contactPresenterDelegate?.resetSort()
     }
 }

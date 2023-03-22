@@ -17,20 +17,20 @@ protocol SortViewControllerProtocol: AnyObject {
 
 final class SortViewController: UIViewController {
     // MARK: - Properties
-    private let fromAtoZNameSortUIView = UIView()
-    private let fromAtoZNameSortUILabel = UILabel()
+    private let fromAtoZNameSortView = UIView()
+    private let fromAtoZNameSortLabel = UILabel()
     private let fromAtoZNameSortRadioButton = BlueRadioButton()
     
-    private let fromZtoANameSortUIView = UIView()
-    private let fromZtoANameSortUILabel = UILabel()
+    private let fromZtoANameSortView = UIView()
+    private let fromZtoANameSortLabel = UILabel()
     private let fromZtoANameSortRadioButton = BlueRadioButton()
     
-    private let fromAtoZFaimilyNameSortUIView = UIView()
-    private let fromAtoZFaimilyNameSortUILabel = UILabel()
+    private let fromAtoZFaimilyNameSortView = UIView()
+    private let fromAtoZFaimilyNameSortLabel = UILabel()
     private let fromAtoZFaimilyNameSortRadioButton = BlueRadioButton()
     
-    private let fromZtoAFaimilyNameSortUIView = UIView()
-    private let fromZtoAFaimilyNameSortUILabel = UILabel()
+    private let fromZtoAFaimilyNameSortView = UIView()
+    private let fromZtoAFaimilyNameSortLabel = UILabel()
     private let fromZtoAFaimilyNameSortRadioButton = BlueRadioButton()
     
     private let resetButton = UIButton()
@@ -46,35 +46,35 @@ final class SortViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = MyColors.fullBlack
         presenter?.view = self
-        configureSortUIView(
-            name: fromAtoZNameSortUIView,
+        configureSortView(
+            name: fromAtoZNameSortView,
             prevLabel: nil,
             button: fromAtoZNameSortRadioButton,
             option: sortOption.byNameAToZ
         )
-        configureSortUIView(
-            name: fromZtoANameSortUIView,
-            prevLabel: fromAtoZNameSortUIView,
+        configureSortView(
+            name: fromZtoANameSortView,
+            prevLabel: fromAtoZNameSortView,
             button: fromZtoANameSortRadioButton,
             option: sortOption.byNameZToA
         )
-        configureSortUIView(
-            name: fromAtoZFaimilyNameSortUIView,
-            prevLabel: fromZtoANameSortUIView,
+        configureSortView(
+            name: fromAtoZFaimilyNameSortView,
+            prevLabel: fromZtoANameSortView,
             button: fromAtoZFaimilyNameSortRadioButton,
             option: sortOption.byFaimilyNameAToZ
         )
-        configureSortUIView(
-            name: fromZtoAFaimilyNameSortUIView,
-            prevLabel: fromAtoZFaimilyNameSortUIView,
+        configureSortView(
+            name: fromZtoAFaimilyNameSortView,
+            prevLabel: fromAtoZFaimilyNameSortView,
             button: fromZtoAFaimilyNameSortRadioButton,
             option: sortOption.byFaimilyNameZToA
         )
         
-        configureSortUILabel(text: "По имени (А-Я / A-Z)", on: fromAtoZNameSortUILabel, inView: fromAtoZNameSortUIView)
-        configureSortUILabel(text: "По имени (Я-А / Z-A)", on: fromZtoANameSortUILabel, inView: fromZtoANameSortUIView)
-        configureSortUILabel(text: "По фамилии (А-Я / A-Z)", on: fromAtoZFaimilyNameSortUILabel, inView: fromAtoZFaimilyNameSortUIView)
-        configureSortUILabel(text: "По фамилии (Я-А / Z-A)", on: fromZtoAFaimilyNameSortUILabel, inView: fromZtoAFaimilyNameSortUIView)
+        configureSortLabel(text: "По имени (А-Я / A-Z)", on: fromAtoZNameSortLabel, inView: fromAtoZNameSortView)
+        configureSortLabel(text: "По имени (Я-А / Z-A)", on: fromZtoANameSortLabel, inView: fromZtoANameSortView)
+        configureSortLabel(text: "По фамилии (А-Я / A-Z)", on: fromAtoZFaimilyNameSortLabel, inView: fromAtoZFaimilyNameSortView)
+        configureSortLabel(text: "По фамилии (Я-А / Z-A)", on: fromZtoAFaimilyNameSortLabel, inView: fromZtoAFaimilyNameSortView)
         confugureResetButton()
         confugureConformButton()
     }
@@ -84,7 +84,7 @@ final class SortViewController: UIViewController {
     }
     
     // MARK: - Methods
-    private func configureSortUIView(name label: UIView, prevLabel: UIView?, button: BlueRadioButton, option: sortOption) {
+    private func configureSortView(name label: UIView, prevLabel: UIView?, button: BlueRadioButton, option: sortOption) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = MyColors.black
         label.layer.cornerRadius = 24
@@ -109,7 +109,7 @@ final class SortViewController: UIViewController {
     }
     
     
-    private func configureSortUILabel(text: String, on label: UILabel, inView: UIView) {
+    private func configureSortLabel(text: String, on label: UILabel, inView: UIView) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = MyColors.white
         label.font = UIFont(name: "SFProText-Medium", size: 16)
@@ -192,18 +192,18 @@ extension SortViewController: SortViewControllerProtocol {
     }
     
     func fromAtoZNameSortRadioButtonBluePoint(isHidden : Bool) {
-        fromAtoZNameSortRadioButton.bluePoint.isHidden = isHidden
+        fromAtoZNameSortRadioButton.bluePointView.isHidden = isHidden
     }
     
     func fromZtoANameSortRadioButtonBluePoint(isHidden : Bool) {
-        fromZtoANameSortRadioButton.bluePoint.isHidden = isHidden
+        fromZtoANameSortRadioButton.bluePointView.isHidden = isHidden
     }
     
     func fromAtoZFaimilyNameSortRadioButtonBluePoint(isHidden : Bool) {
-        fromAtoZFaimilyNameSortRadioButton.bluePoint.isHidden = isHidden
+        fromAtoZFaimilyNameSortRadioButton.bluePointView.isHidden = isHidden
     }
     
     func fromZtoAFaimilyNameSortRadioButtonBluePoint(isHidden : Bool) {
-        fromZtoAFaimilyNameSortRadioButton.bluePoint.isHidden = isHidden
+        fromZtoAFaimilyNameSortRadioButton.bluePointView.isHidden = isHidden
     }
 }

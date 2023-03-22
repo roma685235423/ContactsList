@@ -94,17 +94,18 @@ final class FilterPresenter: FilterPresenterProtocol {
     func didTapConfirmButton() {
         copyIsSelectedFromTmp()
         checkConfirmButtonAccessability()
-        delegate?.filterIndicator(isHidden: false)
         contactPresenterDelegate?.changeFilterOption(filters: messengerFiltersData)
+        if messengerFiltersData.allSatisfy({$0.isSelected == false }){
+            delegate?.filterIndicator(isHidden: true)
+        } else {
+            delegate?.filterIndicator(isHidden: false)
+        }
     }
     
     func didTapResetButton() {
         dropSelectAll()
         cangeSelectAll()
-        copyIsSelectedFromTmp()
         view?.makeConfirmButtonEnabled()
         view?.updateButtonsImage()
-        contactPresenterDelegate?.resetFilter()
-        delegate?.filterIndicator(isHidden: true)
     }
 }

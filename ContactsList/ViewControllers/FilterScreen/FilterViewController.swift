@@ -7,11 +7,6 @@ protocol FilterViewControllerProtocol {
     func updateButtonsImage()
 }
 
-protocol FilterTransitionDelegate: AnyObject {
-    func changeBackgroundToGray()
-    func changeBackgroundToFullBlack()
-}
-
 
 final class FilterViewController: UIViewController {
     var presenter: FilterPresenterProtocol?

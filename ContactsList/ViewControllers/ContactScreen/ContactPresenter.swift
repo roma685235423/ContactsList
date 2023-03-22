@@ -9,12 +9,10 @@ protocol ContactViewPresenterProtocol {
 
 protocol ContactSortDelegate: AnyObject  {
     func changeSortOption(option: sortOption)
-    func resetSort()
 }
 
 protocol ContactFilterDelegate: AnyObject  {
     func changeFilterOption(filters: [ContactCellContent])
-    func resetFilter()
 }
 
 final class ContactPresenter: ContactViewPresenterProtocol {
@@ -23,6 +21,7 @@ final class ContactPresenter: ContactViewPresenterProtocol {
     private var contactCellModelsFromStore: [Contact] = []
     private var service: ContactService = ContactServiceImpl()
     private var currentSortOption: sortOption = .cancel
+    private var currentFilters: [ContactCellContent] = []
     
     func loadData() {
         service.getContacts{ [ weak self ] contacts in
@@ -35,6 +34,15 @@ final class ContactPresenter: ContactViewPresenterProtocol {
     
     func removeCellModel(index: Int) {
         contactCellModels.remove(at: index)
+        contactCellModelsFromStore.remove(at: index)
+    }
+    
+    private func isNeedToHideNoSuitableContactsLabel() -> Bool {
+        if contactCellModels.count == 0 {
+            return false
+        } else {
+            return true
+        }
     }
     
     
@@ -49,7 +57,7 @@ final class ContactPresenter: ContactViewPresenterProtocol {
             return contacts.sorted(by: {$0.name.components(separatedBy: " ").last ?? "" < $1.name.components(separatedBy: " ").last ?? ""})
         case .byFaimilyNameZToA:
             return contacts.sorted(by: {$0.name.components(separatedBy: " ").last ?? "" > $1.name.components(separatedBy: " ").last ?? ""})
-        default:
+        case .cancel:
             return contacts
         }
     }
@@ -64,7 +72,7 @@ final class ContactPresenter: ContactViewPresenterProtocol {
     }
     
     
-     private func validateContacts(contacts: [Contact], filters: [ContactCellContent]) -> [Contact] {
+    private func validateContacts(contacts: [Contact], filters: [ContactCellContent]) -> [Contact] {
         var validatedContacts: [Contact] = []
         for contact in contacts {
             var isSelected: Bool = true
@@ -107,13 +115,8 @@ final class ContactPresenter: ContactViewPresenterProtocol {
 
 extension ContactPresenter: ContactSortDelegate {
     func changeSortOption(option: sortOption){
+        contactCellModels = validateContacts(contacts: contactCellModelsFromStore, filters: currentFilters)
         contactCellModels = sortContactsBy(option: option, contacts: contactCellModels)
-        view?.reloadTableData()
-    }
-    
-    func resetSort() {
-        let unsortedContacts = sortContactsBy(option: .cancel, contacts: contactCellModels)
-        contactCellModels = unsortedContacts
         view?.reloadTableData()
     }
 }
@@ -121,13 +124,15 @@ extension ContactPresenter: ContactSortDelegate {
 
 extension ContactPresenter: ContactFilterDelegate {
     func changeFilterOption(filters: [ContactCellContent]) {
-        contactCellModels = validateContacts(contacts: contactCellModelsFromStore, filters: filters)
-        view?.reloadTableData()
-    }
-    
-    func resetFilter() {
-        contactCellModels = contactCellModelsFromStore
-        contactCellModels = sortContactsBy(option: currentSortOption, contacts: contactCellModels)
+        currentFilters = filters
+        if currentSortOption == .cancel {
+            contactCellModels = validateContacts(contacts: contactCellModelsFromStore, filters: filters)
+            
+        } else {
+            contactCellModels = validateContacts(contacts: contactCellModelsFromStore, filters: filters)
+            contactCellModels = sortContactsBy(option: currentSortOption, contacts: contactCellModels)
+        }
+        view?.isNeedToHideNoSuitableContactsLabel(isHidden: isNeedToHideNoSuitableContactsLabel())
         view?.reloadTableData()
     }
 }

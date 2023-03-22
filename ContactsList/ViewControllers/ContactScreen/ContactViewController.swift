@@ -4,6 +4,7 @@ import Foundation
 protocol ContactViewControllerProtocol {
     var presenter: ContactViewPresenterProtocol? { get set }
     func reloadTableData()
+    func isNeedToHideNoSuitableContactsLabel(isHidden: Bool)
 }
 
 protocol SortViewDelegate {
@@ -17,7 +18,6 @@ protocol FilterViewDelegate{
 
 final class ContactViewController: UIViewController & ContactViewControllerProtocol{
     // MARK: - Properties
-    //    var swipeInteractionController: SwipeInteractionController?
     var presenter: ContactViewPresenterProtocol?
     var tableView = UITableView()
     var filterViewController = FilterViewController()
@@ -27,8 +27,9 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
     private var sortButton = UIButton()
     private var headerTextLabel = UILabel()
     private var cellId = String(describing: ContactCell.self)
-    private let filterIndicator = UIView()
-    private let sortIndicator = UIView()
+    private let filterIndicatorView = UIView()
+    private let sortIndicatorView = UIView()
+    private let noSuitableContactsLabel = UILabel()
     
     // MARK: - Life cicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -39,7 +40,6 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
         initialSettings()
-        //        swipeInteractionController = SwipeInteractionController(viewController: self)
     }
     
     func reloadTableData() {
@@ -47,6 +47,10 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
             guard let self = self else { return }
             self.tableView.reloadData()
         }
+    }
+    
+    func isNeedToHideNoSuitableContactsLabel(isHidden: Bool) {
+        noSuitableContactsLabel.isHidden = isHidden
     }
 }
 
@@ -67,7 +71,7 @@ extension ContactViewController {
         ])
     }
     
-    private func createHeaderText() {
+    private func configureHeaderTextLabel() {
         headerTextLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerTextLabel)
         headerTextLabel.font = UIFont(name: "SFProText-Bold", size: 34)
@@ -78,6 +82,22 @@ extension ContactViewController {
             headerTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             headerTextLabel.widthAnchor.constraint(equalToConstant: 200),
             headerTextLabel.heightAnchor.constraint(equalToConstant: 41)
+        ])
+    }
+    
+    private func configureNoSuitableContactsLabel() {
+        noSuitableContactsLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(noSuitableContactsLabel)
+        noSuitableContactsLabel.font = UIFont(name: "SFProText-Regular", size: 16)
+        noSuitableContactsLabel.text = "Таких контактов нет, выберите другие фильтры"
+        noSuitableContactsLabel.textAlignment = .center
+        noSuitableContactsLabel.numberOfLines = 0
+        noSuitableContactsLabel.isHidden = true
+        noSuitableContactsLabel.textColor = MyColors.white
+        NSLayoutConstraint.activate([
+            noSuitableContactsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            noSuitableContactsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            noSuitableContactsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -134,12 +154,13 @@ extension ContactViewController {
         tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
         presenter?.view = self
         configureTableView()
-        createHeaderText()
+        configureHeaderTextLabel()
         configureFilterButton()
         configureSortButton()
         reloadTableData()
-        configureSortIndicator(indicator: filterIndicator, on: filterButton)
-        configureSortIndicator(indicator: sortIndicator, on: sortButton)
+        configureSortIndicator(indicator: filterIndicatorView, on: filterButton)
+        configureSortIndicator(indicator: sortIndicatorView, on: sortButton)
+        configureNoSuitableContactsLabel()
     }
     
     
@@ -156,32 +177,6 @@ extension ContactViewController {
     }
 }
 
-extension ContactViewController: FilterTransitionDelegate {
-    func changeBackgroundToGray() {
-        let grayToFullBlackAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
-        grayToFullBlackAnimation.values = [
-            MyColors.fullBlack,
-            MyColors.gray
-        ]
-        grayToFullBlackAnimation.timeOffset = 0.1
-        grayToFullBlackAnimation.duration = 2
-        view.layer.add(grayToFullBlackAnimation, forKey: "backgroundColor")
-        //        let newColor = UIColor.interpolate(from: MyColors.fullBlack, to: MyColors.fullBlack, progress: progress)
-        //        print(progress)
-        //        self.view.backgroundColor = newColor
-        //        DispatchQueue.main.async { [ weak self ] in
-        //            guard let self = self else { return }
-        //            self.view.backgroundColor = MyColors.gray
-        //        }
-    }
-    
-    func changeBackgroundToFullBlack() {
-        DispatchQueue.main.async { [ weak self ] in
-            guard let self = self else { return }
-            self.view.backgroundColor = MyColors.fullBlack
-        }
-    }
-}
 
 // MARK: - Extensions
 extension ContactViewController: UITableViewDataSource {
@@ -241,7 +236,7 @@ extension ContactViewController: UITableViewDelegate {
             if NSStringFromClass(type(of: subview)) == "_UITableViewCellSwipeContainerView" {
                 for swipeContainerSubview in subview.subviews {
                     if NSStringFromClass(type(of: swipeContainerSubview)) == "UISwipeActionPullView" {
-                        swipeContainerSubview.backgroundColor = .systemRed
+                        swipeContainerSubview.backgroundColor = MyColors.red
                         swipeContainerSubview.layer.cornerRadius = 24
                         swipeContainerSubview.clipsToBounds = true
                         for case let button as UIButton in swipeContainerSubview.subviews {
@@ -257,12 +252,12 @@ extension ContactViewController: UITableViewDelegate {
 
 extension ContactViewController: FilterViewDelegate {
     func filterIndicator(isHidden: Bool) {
-        filterIndicator.isHidden = isHidden
+        filterIndicatorView.isHidden = isHidden
     }
 }
 
 extension ContactViewController: SortViewDelegate {
     func sortIndicator(isHidden: Bool) {
-        sortIndicator.isHidden = isHidden
+        sortIndicatorView.isHidden = isHidden
     }
 }

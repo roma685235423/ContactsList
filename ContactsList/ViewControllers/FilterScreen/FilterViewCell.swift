@@ -6,7 +6,7 @@ protocol FilterCellDelegate: AnyObject {
 
 final class FilterViewCell: UITableViewCell {
     weak var delegate: FilterCellDelegate?
-    private var checkboxIndicator = UIImageView()
+    private var checkboxIndicatorView = UIImageView()
     private let cellBackgroundView = UIView()
     private var checkboxButtonIsSelected: Bool = false
     
@@ -45,7 +45,6 @@ final class FilterViewCell: UITableViewCell {
         messengerImageView.layer.cornerRadius = 12
         messengerImageView.layer.masksToBounds = true
         cellBackgroundView.addSubview(messengerImageView)
-        
         NSLayoutConstraint.activate([
             messengerImageView.centerYAnchor.constraint(equalTo: cellBackgroundView.centerYAnchor),
             messengerImageView.leftAnchor.constraint(equalTo: cellBackgroundView.leftAnchor, constant: 16),
@@ -61,7 +60,6 @@ final class FilterViewCell: UITableViewCell {
         messengerNameLable.font = UIFont(name: "SFProText-Regular", size: 16)
         messengerNameLable.textColor = MyColors.white
         cellBackgroundView.addSubview(messengerNameLable)
-        
         let leftOffset: CGFloat
         if content.iconName != nil {
             leftOffset = 64
@@ -75,16 +73,15 @@ final class FilterViewCell: UITableViewCell {
     }
     
     private func configureCheckboxButton(isSelected: Bool) {
-        checkboxIndicator.translatesAutoresizingMaskIntoConstraints = false
-        checkboxIndicator.backgroundColor = .clear
-        checkboxIndicator.image = UIImage(named: "filterOff")
-        cellBackgroundView.addSubview(checkboxIndicator)
-        
+        checkboxIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        checkboxIndicatorView.backgroundColor = .clear
+        checkboxIndicatorView.image = UIImage(named: "filterOff")
+        cellBackgroundView.addSubview(checkboxIndicatorView)
         NSLayoutConstraint.activate([
-            checkboxIndicator.centerYAnchor.constraint(equalTo: cellBackgroundView.centerYAnchor),
-            checkboxIndicator.rightAnchor.constraint(equalTo: cellBackgroundView.rightAnchor, constant: -22),
-            checkboxIndicator.heightAnchor.constraint(equalToConstant: 20),
-            checkboxIndicator.widthAnchor.constraint(equalToConstant: 20)
+            checkboxIndicatorView.centerYAnchor.constraint(equalTo: cellBackgroundView.centerYAnchor),
+            checkboxIndicatorView.rightAnchor.constraint(equalTo: cellBackgroundView.rightAnchor, constant: -22),
+            checkboxIndicatorView.heightAnchor.constraint(equalToConstant: 20),
+            checkboxIndicatorView.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
     
@@ -100,12 +97,10 @@ final class FilterViewCell: UITableViewCell {
          DispatchQueue.main.async { [weak self] in
              guard let self = self else { return }
              if isSelected {
-                 self.checkboxIndicator.image = UIImage(named: "filterOn")
+                 self.checkboxIndicatorView.image = UIImage(named: "filterOn")
              } else {
-                 self.checkboxIndicator.image = UIImage(named: "filterOff")
+                 self.checkboxIndicatorView.image = UIImage(named: "filterOff")
              }
          }
     }
-    
-    
 }
