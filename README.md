@@ -1,6 +1,6 @@
 # ContactsList
 
-# Ссылки и вспомогательные материалы
+# Дизайн
 
 [Дизайн в Figma](https://www.figma.com/file/kphpoqW0h9LsDgNXhqsbcH/YP-Contacts-(iOS)?node-id=3%3A2584)
 
