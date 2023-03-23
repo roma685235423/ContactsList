@@ -4,17 +4,6 @@
 
 [Дизайн в Figma](https://www.figma.com/file/kphpoqW0h9LsDgNXhqsbcH/YP-Contacts-(iOS)?node-id=3%3A2584)
 
-Вы ещё не работали с удалением ячеек и контактами в iOS, поэтому наш ревьюер Миша приготовил для вас два скринкаста и ссылки на документацию:
-
-- [Скринкаст про получение списка контактов в iOS](https://www.loom.com/share/fab8b07149214891a0990bcb7b8f545f)
-- [Фрэймворк Contacts](https://developer.apple.com/documentation/contacts)
-- [Класс CNContact](https://developer.apple.com/documentation/contacts/cncontact)
-- [Contact Keys](https://developer.apple.com/documentation/contacts/contact_keys)
-- [Скринкаст про удаление ячеек](https://www.loom.com/share/17c9d47ec7da424babcf3f99d55cc05b)
-- [UIContextualAction](https://developer.apple.com/documentation/uikit/uicontextualaction)
-
-Если вдруг не получится победить фрэймворк контактов — можете взять [вот этот json-файл](https://code.s3.yandex.net/Mobile/iOS/Projects/contacts_list.json.zip) со списком контактов и их атрибутами.
-
 # Назначение и цели приложения
 
 Приложение, предназначенное для просмотра и работы с контактами, которые доступны на мобильном телефоне пользователя.
