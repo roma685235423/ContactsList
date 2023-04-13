@@ -1,19 +1,27 @@
 import UIKit
 import Contacts
 
+// MARK: - SplashScreenViewControllerProtocol
 protocol SplashScreenViewControllerProtocol {
     var presenter: SplashScreenPresenterProtocol? { get set }
     func configureLogoImageView()
 }
 
+
+
 final class SplashScreenViewControler: UIViewController & SplashScreenViewControllerProtocol {
-    var presenter: SplashScreenPresenterProtocol?
-    
+    // MARK: - UI
     private let logoImageView = UIImageView()
     
+    // MARK: - Properties
+    var presenter: SplashScreenPresenterProtocol?
+    
+    
+    // MARK: - Lifecicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +31,8 @@ final class SplashScreenViewControler: UIViewController & SplashScreenViewContro
         presenter?.viewDidLoad()
     }
     
+    
+    // MARK: - UI Configuration
     func configureLogoImageView() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoImageView)

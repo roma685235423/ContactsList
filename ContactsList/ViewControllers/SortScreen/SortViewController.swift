@@ -16,7 +16,7 @@ protocol SortViewControllerProtocol: AnyObject {
 
 
 final class SortViewController: UIViewController {
-    // MARK: - Properties
+    // MARK: - UI
     private let fromAtoZNameSortView = UIView()
     private let fromAtoZNameSortLabel = UILabel()
     private let fromAtoZNameSortRadioButton = BlueRadioButton()
@@ -36,10 +36,12 @@ final class SortViewController: UIViewController {
     private let resetButton = UIButton()
     private let conformButton = UIButton()
     
+    // MARK: - Properties
     private var currentSortOption: Int = 1
     private var previosSortOptions: Int = 1
     
     var presenter: SortPresenterProtocol?
+    
     
     // MARK: - Life cicle
     override func viewDidLoad() {
@@ -83,7 +85,8 @@ final class SortViewController: UIViewController {
         presenter?.viewWillAppear()
     }
     
-    // MARK: - Methods
+    
+    // MARK: - UI Configuration
     private func configureSortView(name label: UIView, prevLabel: UIView?, button: BlueRadioButton, option: sortOption) {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = MyColors.black
@@ -121,6 +124,7 @@ final class SortViewController: UIViewController {
         ])
     }
     
+    
     private func confugureResetButton() {
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.layer.masksToBounds = true
@@ -139,6 +143,7 @@ final class SortViewController: UIViewController {
             resetButton.widthAnchor.constraint(equalToConstant: (view.frame.width - 51) / 2)
         ])
     }
+    
     
     private func confugureConformButton() {
         conformButton.translatesAutoresizingMaskIntoConstraints = false
@@ -159,17 +164,22 @@ final class SortViewController: UIViewController {
         ])
     }
     
+    
+    // MARK: - Actions
     @objc
     private func didTapConfirmButton() {
         presenter?.didTapConfirmButton()
         self.dismiss(animated: true)
     }
     
+    
     @objc
     private func didTapResetButton() {
         presenter?.didTapResetButton()
     }
 }
+
+
 
 // MARK: - BlueRadioButtonDelegate
 extension SortViewController: BlueRadioButtonDelegate {
@@ -179,7 +189,9 @@ extension SortViewController: BlueRadioButtonDelegate {
     }
 }
 
-// MARK: - Extension
+
+
+// MARK: - Extension SortViewControllerProtocol
 extension SortViewController: SortViewControllerProtocol {
     func makeConfirmButtonEnabled() {
         conformButton.isEnabled = true

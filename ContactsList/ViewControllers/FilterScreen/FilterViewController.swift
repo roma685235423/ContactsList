@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - FilterViewControllerProtocol
 protocol FilterViewControllerProtocol {
     var presenter: FilterPresenterProtocol? { get set }
     func makeConfirmButtonEnabled()
@@ -8,13 +9,18 @@ protocol FilterViewControllerProtocol {
 }
 
 
+
 final class FilterViewController: UIViewController {
-    var presenter: FilterPresenterProtocol?
+    // MARK: - UI
     private var filterTableView = UITableView()
     private let resetButton = UIButton()
     private let conformButton = UIButton()
     private let cellID = String(describing: FilterViewCell.self)
     
+    var presenter: FilterPresenterProtocol?
+    
+    
+    // MARK: - Life cicle
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSettings()
@@ -30,7 +36,7 @@ final class FilterViewController: UIViewController {
     }
     
     
-    
+    // MARK: - UI Configuration
     func initialSettings() {
         filterTableView.delegate = self
         filterTableView.dataSource = self
@@ -42,6 +48,7 @@ final class FilterViewController: UIViewController {
         confugureConformButton()
         filterTableView.reloadData()
     }
+    
     
     private func confugureResetButton() {
         resetButton.translatesAutoresizingMaskIntoConstraints = false
@@ -62,6 +69,7 @@ final class FilterViewController: UIViewController {
         ])
     }
     
+    
     private func confugureConformButton() {
         conformButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(conformButton)
@@ -81,6 +89,7 @@ final class FilterViewController: UIViewController {
         ])
     }
     
+    
     private func configureFilterTableView() {
         filterTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(filterTableView)
@@ -95,11 +104,14 @@ final class FilterViewController: UIViewController {
         ])
     }
     
+    
+    // MARK: - Actions
     @objc
     private func didTapConfirmButton() {
         presenter?.didTapConfirmButton()
         self.dismiss(animated: true)
     }
+    
     
     @objc
     private func didTapResetButton() {
@@ -108,14 +120,20 @@ final class FilterViewController: UIViewController {
     }
 }
 
+
+
+// MARK: - Extension UITableViewDataSource & UITableViewDelegate
 extension FilterViewController: UITableViewDataSource & UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         68
     }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let cellModelsCount = self.presenter?.messengerFiltersData.count else {fatalError("Invalid models configuration")}
         return cellModelsCount
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = filterTableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? FilterViewCell,
@@ -129,6 +147,9 @@ extension FilterViewController: UITableViewDataSource & UITableViewDelegate {
     }
 }
 
+
+
+// MARK: - Extension FilterCellDelegate
 extension FilterViewController: FilterCellDelegate {
     func filterCheckboxButtonClicked(cell:FilterViewCell) {
         guard let indexPath = filterTableView.indexPath(for: cell),
@@ -149,6 +170,8 @@ extension FilterViewController: FilterCellDelegate {
 }
 
 
+
+// MARK: - Extension FilterViewController
 extension FilterViewController {
     func changeAllButtonsImage() {
         guard let tmpIsSelected = presenter?.tmpIsSelected else { return }
@@ -166,7 +189,7 @@ extension FilterViewController {
         }
     }
     
-
+    
     func updateButtonsImage() {
         guard let tmpIsSelected = presenter?.tmpIsSelected else { return }
         for visibleCell in filterTableView.visibleCells {
@@ -178,11 +201,13 @@ extension FilterViewController {
         }
     }
     
+    
     func dropSelectAllButtonState() {
         let firstCell = filterTableView.visibleCells.first as? FilterViewCell
         presenter?.dropSelectAll()
         firstCell?.changeCheckboxButtonImage(isSelected: false)
     }
+    
     
     func setSelectAllButtonState() {
         let firstCell = filterTableView.visibleCells.first as? FilterViewCell
@@ -192,11 +217,14 @@ extension FilterViewController {
 }
 
 
+
+// MARK: - Extension FilterViewControllerProtocol
 extension FilterViewController: FilterViewControllerProtocol {
     func makeConfirmButtonEnabled() {
         conformButton.isEnabled = true
         conformButton.backgroundColor = MyColors.blue
     }
+    
     
     func makeConfirmButtonUnEnabled() {
         conformButton.isEnabled = false

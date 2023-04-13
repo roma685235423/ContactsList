@@ -1,15 +1,22 @@
 import UIKit
 
+// MARK: - FilterCellDelegate
 protocol FilterCellDelegate: AnyObject {
     func filterCheckboxButtonClicked(cell:FilterViewCell)
 }
 
+
+
 final class FilterViewCell: UITableViewCell {
-    weak var delegate: FilterCellDelegate?
+    // MARK: - UI
     private var checkboxIndicatorView = UIImageView()
     private let cellBackgroundView = UIView()
     private var checkboxButtonIsSelected: Bool = false
     
+    weak var delegate: FilterCellDelegate?
+    
+    
+    // MARK: - UI Configuration
     func configureCellContent(content: ContactCellContent) {
         configureCellBackgroundView()
         configureImageView(content: content)
@@ -85,14 +92,8 @@ final class FilterViewCell: UITableViewCell {
         ])
     }
     
-    @objc
-    private func cellDidTap() {
-        self.isSelected = !self.isSelected
-        let isSelected = self.isSelected
-        changeCheckboxButtonImage(isSelected: isSelected)
-        delegate?.filterCheckboxButtonClicked(cell:self)
-    }
     
+    // MARK: - Method
      func changeCheckboxButtonImage(isSelected: Bool) {
          DispatchQueue.main.async { [weak self] in
              guard let self = self else { return }
@@ -102,5 +103,15 @@ final class FilterViewCell: UITableViewCell {
                  self.checkboxIndicatorView.image = UIImage(named: "filterOff")
              }
          }
+    }
+    
+    
+    // MARK: - Action
+    @objc
+    private func cellDidTap() {
+        self.isSelected = !self.isSelected
+        let isSelected = self.isSelected
+        changeCheckboxButtonImage(isSelected: isSelected)
+        delegate?.filterCheckboxButtonClicked(cell:self)
     }
 }

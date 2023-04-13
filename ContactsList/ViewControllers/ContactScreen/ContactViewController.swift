@@ -1,40 +1,52 @@
 import UIKit
 import Foundation
 
+// MARK: - ContactViewControllerProtocol
 protocol ContactViewControllerProtocol {
     var presenter: ContactViewPresenterProtocol? { get set }
     func reloadTableData()
     func isNeedToHideNoSuitableContactsLabel(isHidden: Bool)
 }
 
+
+
+// MARK: - SortViewDelegate
 protocol SortViewDelegate {
     func sortIndicator(isHidden: Bool)
 }
 
+
+
+// MARK: - FilterViewDelegate
 protocol FilterViewDelegate{
     func filterIndicator(isHidden: Bool)
 }
 
 
+
 final class ContactViewController: UIViewController & ContactViewControllerProtocol{
-    // MARK: - Properties
-    var presenter: ContactViewPresenterProtocol?
+    // MARK: - UI
     var tableView = UITableView()
-    var filterViewController = FilterViewController()
-    var sortViewController = SortViewController()
-    
     private var filterButton = UIButton()
     private var sortButton = UIButton()
     private var headerTextLabel = UILabel()
-    private var cellId = String(describing: ContactCell.self)
     private let filterIndicatorView = UIView()
     private let sortIndicatorView = UIView()
     private let noSuitableContactsLabel = UILabel()
+    
+    // MARK: - Properties
+    private var cellId = String(describing: ContactCell.self)
+    var filterViewController = FilterViewController()
+    var sortViewController = SortViewController()
+    var presenter: ContactViewPresenterProtocol?
+    
+    
     
     // MARK: - Life cicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +54,8 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
         initialSettings()
     }
     
+    
+    // MARK: - Methods
     func reloadTableData() {
         DispatchQueue.main.async { [ weak self ] in
             guard let self = self else { return }
@@ -49,12 +63,17 @@ final class ContactViewController: UIViewController & ContactViewControllerProto
         }
     }
     
+    
     func isNeedToHideNoSuitableContactsLabel(isHidden: Bool) {
         noSuitableContactsLabel.isHidden = isHidden
     }
 }
 
+
+
+// MARK: - Extension ContactViewController
 extension ContactViewController {
+    // MARK: - UI Configuration
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -71,6 +90,7 @@ extension ContactViewController {
         ])
     }
     
+    
     private func configureHeaderTextLabel() {
         headerTextLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerTextLabel)
@@ -84,6 +104,7 @@ extension ContactViewController {
             headerTextLabel.heightAnchor.constraint(equalToConstant: 41)
         ])
     }
+    
     
     private func configureNoSuitableContactsLabel() {
         noSuitableContactsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -101,6 +122,7 @@ extension ContactViewController {
         ])
     }
     
+    
     private func configureFilterButton() {
         let filterButtonImage = UIImage(named: "filter")
         guard let unwrappedImage = filterButtonImage else { return }
@@ -116,6 +138,7 @@ extension ContactViewController {
         ])
     }
     
+    
     private func configureSortButton() {
         let sortButtonImage = UIImage(named: "sort")
         guard let unwrappedImage = sortButtonImage else { return }
@@ -130,6 +153,7 @@ extension ContactViewController {
             sortButton.heightAnchor.constraint(equalToConstant: 18)
         ])
     }
+    
     
     private func configureSortIndicator(indicator: UIView, on button: UIButton) {
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -149,6 +173,7 @@ extension ContactViewController {
         ])
     }
     
+    
     private func initialSettings() {
         view.backgroundColor = MyColors.fullBlack
         tableView.register(ContactCell.self, forCellReuseIdentifier: cellId)
@@ -164,11 +189,13 @@ extension ContactViewController {
     }
     
     
+    // MARK: - Actions
     @objc
     private func didTapFilterButton() {
         filterViewController.modalPresentationStyle = .pageSheet
         present(filterViewController, animated: true)
     }
+    
     
     @objc
     private func didTapSortButton() {
@@ -178,16 +205,19 @@ extension ContactViewController {
 }
 
 
-// MARK: - Extensions
+
+// MARK: - Extension UITableViewDataSource
 extension ContactViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         124
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let cellModelsCount = self.presenter?.contactCellModels.count else {fatalError("Invalid models configuration")}
         return cellModelsCount
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let contactCell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ContactCell,
@@ -201,6 +231,8 @@ extension ContactViewController: UITableViewDataSource {
 }
 
 
+
+// MARK: - Extension UITableViewDelegate
 extension ContactViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAlert = UIAlertController(
@@ -208,12 +240,10 @@ extension ContactViewController: UITableViewDelegate {
             message: "Уверены что хотите удалить контакт?",
             preferredStyle: .actionSheet
         )
-        
         let alertAction = UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
             self?.presenter?.removeCellModel(index: indexPath.row)
             self?.tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        
         deleteAlert.addAction(alertAction)
         
         let deleteAction = UIContextualAction(
@@ -222,14 +252,13 @@ extension ContactViewController: UITableViewDelegate {
         ) { [weak self]  _, _, completion in
             self?.present(deleteAlert, animated: true)
         }
-        
         deleteAlert.addAction(UIAlertAction(title: "Отмена", style: .cancel) { _ in
             tableView.reloadRows(at: [indexPath], with: .automatic)
             tableView.reloadData()
         })
-        
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+    
     
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         for subview in tableView.subviews {
@@ -250,12 +279,18 @@ extension ContactViewController: UITableViewDelegate {
     }
 }
 
+
+
+// MARK: - Extension FilterViewDelegate
 extension ContactViewController: FilterViewDelegate {
     func filterIndicator(isHidden: Bool) {
         filterIndicatorView.isHidden = isHidden
     }
 }
 
+
+
+// MARK: - Extension SortViewDelegate
 extension ContactViewController: SortViewDelegate {
     func sortIndicator(isHidden: Bool) {
         sortIndicatorView.isHidden = isHidden
