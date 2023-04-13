@@ -2,13 +2,15 @@ import UIKit
 
 
 final class ContactCell: UITableViewCell {
-    // MARK: - Properties
+    // MARK: - UI
     private var contactImageView = UIImageView()
     private var contactNameLabel = UILabel()
     private var contactPhoneLabel = UILabel()
     private let contactCellView = UIView()
     private var icons: [UIImageView] = []
-    // MARK: - Methods
+    
+    
+    // MARK: - UI Configuration
     func configureCell(contact: Contact) {
         selectionStyle = .none
         contentView.backgroundColor = MyColors.fullBlack
@@ -21,6 +23,7 @@ final class ContactCell: UITableViewCell {
         configureIconLabeles(messengers: contact.messengers)
     }
     
+    
     private func configureContactCellView() {
         contactCellView.translatesAutoresizingMaskIntoConstraints = false
         contactCellView.backgroundColor = MyColors.black
@@ -32,6 +35,7 @@ final class ContactCell: UITableViewCell {
             contactCellView.widthAnchor.constraint(equalToConstant: self.frame.width)
         ])
     }
+    
     
     private func configureContactImageView(image: UIImage) {
         contactImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +53,7 @@ final class ContactCell: UITableViewCell {
         ])
     }
     
+    
     private func configureContactNameLabel(name: String) {
         contactNameLabel.translatesAutoresizingMaskIntoConstraints = false
         contactNameLabel.font = UIFont(name: "SFProText-Medium", size: 32)
@@ -63,6 +68,7 @@ final class ContactCell: UITableViewCell {
         ])
     }
     
+    
     private func configureContactPhoneLabel(phone: String) {
         contactPhoneLabel.translatesAutoresizingMaskIntoConstraints = false
         contactPhoneLabel.font = UIFont(name: "SFProText-Regular", size: 12)
@@ -74,6 +80,7 @@ final class ContactCell: UITableViewCell {
             contactPhoneLabel.topAnchor.constraint(equalTo: contactNameLabel.bottomAnchor, constant: 8)
         ])
     }
+    
     
     private func configureIconImageView(iconName: String) -> UIImageView {
         let imageView = UIImageView()
@@ -88,12 +95,14 @@ final class ContactCell: UITableViewCell {
         return imageView
     }
     
+    
     private func configureImage(imageData: Data?) -> UIImage {
         guard let data = imageData else {
             return UIImage(named: "avatar") ?? UIImage()
         }
         return UIImage(data: data)!
     }
+    
     
     private func configureIconLabeles(messengers: MessengersIconNames){
         var iconConstraints = [NSLayoutConstraint]()
@@ -127,6 +136,7 @@ final class ContactCell: UITableViewCell {
         }
         NSLayoutConstraint.activate(iconConstraints)
     }
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()

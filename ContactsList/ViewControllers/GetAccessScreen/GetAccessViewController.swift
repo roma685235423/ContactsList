@@ -1,8 +1,9 @@
 import UIKit
 
 final class GetAccessViewConrtoller: UIViewController {
-    // MARK: - Properties
+    // MARK: - UI
     private let logoImageView = UIImageView()
+    
     
     // MARK: - Lifecicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -17,7 +18,8 @@ final class GetAccessViewConrtoller: UIViewController {
         configureGetAccessButton()
     }
     
-    // MARK: - Methods
+    
+    // MARK: - UI Configuration
     private func configureLogoImageView() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoImageView)
@@ -52,6 +54,7 @@ final class GetAccessViewConrtoller: UIViewController {
     }
     
     
+    // MARK: - Actions
     @objc
     private func didTapGetAccessButton() {
         if let url = URL(string: UIApplication.openSettingsURLString) {

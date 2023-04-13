@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - ContactViewPresenterProtocol
 protocol ContactViewPresenterProtocol {
     var view: ContactViewControllerProtocol? {get set}
     var contactCellModels: [Contact] { get }
@@ -7,15 +8,24 @@ protocol ContactViewPresenterProtocol {
     func removeCellModel(index: Int)
 }
 
+
+
+// MARK: - ContactSortDelegate
 protocol ContactSortDelegate: AnyObject  {
     func changeSortOption(option: sortOption)
 }
 
+
+
+// MARK: - ContactFilterDelegate
 protocol ContactFilterDelegate: AnyObject  {
     func changeFilterOption(filters: [ContactCellContent])
 }
 
+
+
 final class ContactPresenter: ContactViewPresenterProtocol {
+    // MARK: - Properties
     var view: ContactViewControllerProtocol?
     var contactCellModels: [Contact] = []
     private var contactCellModelsFromStore: [Contact] = []
@@ -23,6 +33,8 @@ final class ContactPresenter: ContactViewPresenterProtocol {
     private var currentSortOption: sortOption = .cancel
     private var currentFilters: [ContactCellContent] = []
     
+    
+    // MARK: - Methods
     func loadData() {
         service.getContacts{ [ weak self ] contacts in
             guard let self = self else { return }
@@ -32,10 +44,12 @@ final class ContactPresenter: ContactViewPresenterProtocol {
         }
     }
     
+    
     func removeCellModel(index: Int) {
         contactCellModels.remove(at: index)
         contactCellModelsFromStore.remove(at: index)
     }
+    
     
     private func isNeedToHideNoSuitableContactsLabel() -> Bool {
         if contactCellModels.count == 0 {
@@ -113,6 +127,8 @@ final class ContactPresenter: ContactViewPresenterProtocol {
 }
 
 
+
+// MARK: - Extension ContactSortDelegate
 extension ContactPresenter: ContactSortDelegate {
     func changeSortOption(option: sortOption){
         contactCellModels = validateContacts(contacts: contactCellModelsFromStore, filters: currentFilters)
@@ -122,6 +138,8 @@ extension ContactPresenter: ContactSortDelegate {
 }
 
 
+
+// MARK: - Extension ContactFilterDelegate
 extension ContactPresenter: ContactFilterDelegate {
     func changeFilterOption(filters: [ContactCellContent]) {
         currentFilters = filters

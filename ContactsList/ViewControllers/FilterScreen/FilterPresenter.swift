@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - FilterPresenterProtocol
 protocol FilterPresenterProtocol {
     var view: FilterViewControllerProtocol? { get set }
     var messengerFiltersData: [ContactCellContent] { get set }
@@ -17,7 +18,10 @@ protocol FilterPresenterProtocol {
     func checkConfirmButtonAccessability()
 }
 
+
+
 final class FilterPresenter: FilterPresenterProtocol {
+    // MARK: - Properties
     var contactPresenterDelegate: ContactFilterDelegate?
     var view: FilterViewControllerProtocol?
     var delegate: FilterViewDelegate?
@@ -34,9 +38,12 @@ final class FilterPresenter: FilterPresenterProtocol {
     ]
     var tmpIsSelected: [Bool] = []
     
+    
+    // MARK: - Methods
     func copyIsSelectedToTmp() {
         tmpIsSelected = messengerFiltersData.map{$0.isSelected}
     }
+    
     
     func copyIsSelectedFromTmp() {
         for i in 0..<tmpIsSelected.count {
@@ -44,9 +51,11 @@ final class FilterPresenter: FilterPresenterProtocol {
         }
     }
     
+    
     func changeTempIsSelectedFor(row: Int) {
         tmpIsSelected[row] = !tmpIsSelected[row]
     }
+    
     
     func cangeSelectAll() {
         let allSelected = tmpIsSelected[0]
@@ -54,6 +63,7 @@ final class FilterPresenter: FilterPresenterProtocol {
             tmpIsSelected[i] = allSelected
         }
     }
+    
     
     func checkIsAllSelectedNeedDrop() -> Bool {
         let messengersCheckbox = tmpIsSelected.dropFirst()
@@ -65,6 +75,7 @@ final class FilterPresenter: FilterPresenterProtocol {
         }
     }
     
+    
     func checkIsAllSelectedNeedSet() -> Bool {
         let messengersCheckbox = tmpIsSelected.dropFirst()
         let allCheckboxTrue = messengersCheckbox.allSatisfy({$0 == true})
@@ -75,6 +86,7 @@ final class FilterPresenter: FilterPresenterProtocol {
         }
     }
     
+    
     func checkConfirmButtonAccessability() {
         var currentFilters: [Bool] = []
         for i in 0..<tmpIsSelected.count {
@@ -83,13 +95,16 @@ final class FilterPresenter: FilterPresenterProtocol {
         (tmpIsSelected != currentFilters) ? view?.makeConfirmButtonEnabled() : view?.makeConfirmButtonUnEnabled()
     }
     
+    
     func dropSelectAll() {
         tmpIsSelected[0] = false
     }
     
+    
     func setSelectAll() {
         tmpIsSelected[0] = true
     }
+    
     
     func didTapConfirmButton() {
         copyIsSelectedFromTmp()
@@ -101,6 +116,7 @@ final class FilterPresenter: FilterPresenterProtocol {
             delegate?.filterIndicator(isHidden: false)
         }
     }
+    
     
     func didTapResetButton() {
         dropSelectAll()

@@ -10,6 +10,7 @@ final class ContactServiceImpl: ContactService {
     private let contactStore = CNContactStore()
     private var contactsFromStore: [ContactFromStore] = []
     
+    
     // MARK: - Methods
     func getContacts(completion: @escaping (([ContactFromStore]) -> Void)) {
         let request = CNContactFetchRequest(keysToFetch: [
@@ -59,6 +60,7 @@ final class ContactServiceImpl: ContactService {
             }
         }
     }
+    
     
     func requestAccess(completion: @escaping (Bool) -> Void) {
         contactStore.requestAccess(for: .contacts) { isGrant, error in

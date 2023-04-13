@@ -1,24 +1,31 @@
 import UIKit
 import Contacts
 
+// MARK: - SplashScreenPresenterProtocol
 protocol SplashScreenPresenterProtocol {
     var view: SplashScreenViewControllerProtocol? { get set }
     func viewDidLoad()
 }
 
+
+
 final class SplashScreenPresenter: SplashScreenPresenterProtocol {
+    // MARK: - Properties
     var view: SplashScreenViewControllerProtocol?
     
     private let contactStore = CNContactStore()
     private let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
     private let service: ContactService = ContactServiceImpl()
     
+    
+    // MARK: - Lifecicle
     func viewDidLoad() {
         view?.configureLogoImageView()
         checkAuthStatus()
     }
     
     
+    // MARK: - Methods
     private func checkAuthStatus () {
         switch authorizationStatus {
         case .authorized:
@@ -42,6 +49,7 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
             switchToGetAccessView()
         }
     }
+    
     
     private func switchToContactView() {
         DispatchQueue.main.async {
@@ -71,6 +79,7 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
             window.rootViewController = contactsView
         }
     }
+    
     
     private func switchToGetAccessView() {
         DispatchQueue.main.async {
