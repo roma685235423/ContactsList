@@ -86,7 +86,7 @@ final class ContactCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.frame.size = CGSize(width: 24, height: 24)
-        imageView.image = UIImage(named: iconName)
+        imageView.image = UIImage(named: iconName.lowercased())
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = imageView.frame.height / 2
         imageView.layer.borderWidth = 2
@@ -118,7 +118,7 @@ final class ContactCell: UITableViewCell {
         ].compactMap { $0 }
         for messenger in messengerStrings {
             let icon = messenger
-            let imageView = self.configureIconImageView(iconName: icon)
+            let imageView = self.configureIconImageView(iconName: icon.lowercased())
             icons.append(imageView)
         }
         for (index, iconView) in icons.enumerated() {
