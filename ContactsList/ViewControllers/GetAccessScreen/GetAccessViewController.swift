@@ -1,11 +1,12 @@
 import UIKit
 
 final class GetAccessViewConrtoller: UIViewController {
-    // MARK: - UI
+    // MARK: - Private properties
+    
     private let logoImageView = UIImageView()
     
+    // MARK: - Life cycle
     
-    // MARK: - Lifecicle
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -18,8 +19,8 @@ final class GetAccessViewConrtoller: UIViewController {
         configureGetAccessButton()
     }
     
+    // MARK: - Private methods
     
-    // MARK: - UI Configuration
     private func configureLogoImageView() {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoImageView)
@@ -32,7 +33,6 @@ final class GetAccessViewConrtoller: UIViewController {
             logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
     
     private func configureGetAccessButton() {
         let getAccessButton = UIButton()
@@ -53,8 +53,8 @@ final class GetAccessViewConrtoller: UIViewController {
         ])
     }
     
-    
     // MARK: - Actions
+    
     @objc
     private func didTapGetAccessButton() {
         if let url = URL(string: UIApplication.openSettingsURLString) {

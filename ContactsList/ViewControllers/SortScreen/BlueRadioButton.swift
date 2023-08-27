@@ -1,14 +1,13 @@
 import UIKit
 
 class BlueRadioButton: UIButton {
-    // MARK: - UI
+    // MARK: - Public properties
     var bluePointView = UIView()
     var radioButton = UIButton()
-    
     weak var delegate: BlueRadioButtonDelegate?
     
+    // MARK: - Public methods
     
-    // MARK: - UI Configuration
     func configureRadioButton(onView: UIView, sortOption: sortOption, delegate: BlueRadioButtonDelegate) {
         setTagFromSortOption(option: sortOption)
         radioButton.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +28,6 @@ class BlueRadioButton: UIButton {
         configureRadioButtonPoint(onView: onView, name: radioButton)
     }
     
-    
     func configureRadioButtonPoint(onView: UIView, name button: UIButton) {
         bluePointView.translatesAutoresizingMaskIntoConstraints = false
         bluePointView.frame = CGRect(x: 0, y: 0, width: 14, height: 14)
@@ -47,8 +45,8 @@ class BlueRadioButton: UIButton {
         ])
     }
     
+    // MARK: - Private methods
     
-    // MARK: - Methods
     private func setTagFromSortOption (option: sortOption) {
         switch option {
         case .byNameAToZ:
@@ -63,7 +61,6 @@ class BlueRadioButton: UIButton {
             return
         }
     }
-    
     
     private func returnSortOptionByTag(option: Int) -> sortOption {
         switch option {
@@ -80,8 +77,8 @@ class BlueRadioButton: UIButton {
         }
     }
     
-    
     // MARK: - Actions
+    
     @objc
     private func radioButtonTapped(_ sender: BlueRadioButton) {
         let tag = self.radioButton.tag

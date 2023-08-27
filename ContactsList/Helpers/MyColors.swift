@@ -1,6 +1,5 @@
 import UIKit
 
-
 enum MyColors {
     static let black = UIColor(hex: 0x232122)
     static let blue = UIColor(hex: 0x005FFF)

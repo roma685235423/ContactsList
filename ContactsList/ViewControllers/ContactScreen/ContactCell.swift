@@ -1,16 +1,16 @@
 import UIKit
 
-
 final class ContactCell: UITableViewCell {
-    // MARK: - UI
+    // MARK: - Private properties
+    
     private var contactImageView = UIImageView()
     private var contactNameLabel = UILabel()
     private var contactPhoneLabel = UILabel()
     private let contactCellView = UIView()
     private var icons: [UIImageView] = []
     
+    // MARK: - Public methods
     
-    // MARK: - UI Configuration
     func configureCell(contact: Contact) {
         selectionStyle = .none
         contentView.backgroundColor = MyColors.fullBlack
@@ -23,8 +23,19 @@ final class ContactCell: UITableViewCell {
         configureIconLabeles(messengers: contact.messengers)
     }
     
+    // MARK: - Life cycle
     
-    private func configureContactCellView() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        for views in contactCellView.subviews {
+            views.removeFromSuperview()
+        }
+    }
+}
+
+
+private extension ContactCell {
+    func configureContactCellView() {
         contactCellView.translatesAutoresizingMaskIntoConstraints = false
         contactCellView.backgroundColor = MyColors.black
         contactCellView.layer.cornerRadius = 24
@@ -36,8 +47,7 @@ final class ContactCell: UITableViewCell {
         ])
     }
     
-    
-    private func configureContactImageView(image: UIImage) {
+    func configureContactImageView(image: UIImage) {
         contactImageView.translatesAutoresizingMaskIntoConstraints = false
         contactImageView.backgroundColor = MyColors.gray
         contactImageView.layer.cornerRadius = 24
@@ -53,8 +63,7 @@ final class ContactCell: UITableViewCell {
         ])
     }
     
-    
-    private func configureContactNameLabel(name: String) {
+    func configureContactNameLabel(name: String) {
         contactNameLabel.translatesAutoresizingMaskIntoConstraints = false
         contactNameLabel.font = UIFont(name: "SFProText-Medium", size: 32)
         contactNameLabel.text = name
@@ -68,8 +77,7 @@ final class ContactCell: UITableViewCell {
         ])
     }
     
-    
-    private func configureContactPhoneLabel(phone: String) {
+    func configureContactPhoneLabel(phone: String) {
         contactPhoneLabel.translatesAutoresizingMaskIntoConstraints = false
         contactPhoneLabel.font = UIFont(name: "SFProText-Regular", size: 12)
         contactPhoneLabel.textColor = MyColors.gray
@@ -81,8 +89,7 @@ final class ContactCell: UITableViewCell {
         ])
     }
     
-    
-    private func configureIconImageView(iconName: String) -> UIImageView {
+    func configureIconImageView(iconName: String) -> UIImageView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.frame.size = CGSize(width: 24, height: 24)
@@ -95,16 +102,14 @@ final class ContactCell: UITableViewCell {
         return imageView
     }
     
-    
-    private func configureImage(imageData: Data?) -> UIImage {
+    func configureImage(imageData: Data?) -> UIImage {
         guard let data = imageData else {
             return UIImage(named: "avatar") ?? UIImage()
         }
         return UIImage(data: data)!
     }
     
-    
-    private func configureIconLabeles(messengers: MessengersIconNames){
+    func configureIconLabeles(messengers: MessengersIconNames){
         var iconConstraints = [NSLayoutConstraint]()
         var icons = [UIImageView]()
         let messengerStrings = [
@@ -135,13 +140,5 @@ final class ContactCell: UITableViewCell {
             iconConstraints.append(iconView.widthAnchor.constraint(equalToConstant: 24))
         }
         NSLayoutConstraint.activate(iconConstraints)
-    }
-    
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        for views in contactCellView.subviews {
-            views.removeFromSuperview()
-        }
     }
 }

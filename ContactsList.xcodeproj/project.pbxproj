@@ -38,6 +38,20 @@
 		BA8F427429B106B800567099 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA8F426F29B106B800567099 /* SF-Pro-Text-Medium.otf */; };
 		BA8F427629B116E400567099 /* MyColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F427529B116E400567099 /* MyColors.swift */; };
 		BA8F427929B1185F00567099 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F427829B1185F00567099 /* UIColorExtension.swift */; };
+		BAB0D10E2A9B605500DBC6F4 /* SplashScreenViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D10D2A9B605500DBC6F4 /* SplashScreenViewControllerProtocol.swift */; };
+		BAB0D1102A9B608600DBC6F4 /* SplashScreenPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D10F2A9B608600DBC6F4 /* SplashScreenPresenterProtocol.swift */; };
+		BAB0D1122A9B61A900DBC6F4 /* FilterViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1112A9B61A900DBC6F4 /* FilterViewDelegate.swift */; };
+		BAB0D1142A9B61E300DBC6F4 /* SortViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1132A9B61E300DBC6F4 /* SortViewDelegate.swift */; };
+		BAB0D1162A9B622900DBC6F4 /* ContactViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1152A9B622900DBC6F4 /* ContactViewControllerProtocol.swift */; };
+		BAB0D1192A9B636600DBC6F4 /* ContactViewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1182A9B636600DBC6F4 /* ContactViewPresenterProtocol.swift */; };
+		BAB0D11B2A9B638200DBC6F4 /* ContactSortDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D11A2A9B638200DBC6F4 /* ContactSortDelegate.swift */; };
+		BAB0D11D2A9B63B700DBC6F4 /* ContactFilterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D11C2A9B63B700DBC6F4 /* ContactFilterDelegate.swift */; };
+		BAB0D1212A9B677C00DBC6F4 /* BlueRadioButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1202A9B677C00DBC6F4 /* BlueRadioButtonDelegate.swift */; };
+		BAB0D1232A9B67B900DBC6F4 /* SortViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1222A9B67B900DBC6F4 /* SortViewControllerProtocol.swift */; };
+		BAB0D1252A9B688800DBC6F4 /* SortPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1242A9B688800DBC6F4 /* SortPresenterProtocol.swift */; };
+		BAB0D1282A9B6B3700DBC6F4 /* FilterViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1272A9B6B3700DBC6F4 /* FilterViewControllerProtocol.swift */; };
+		BAB0D12A2A9B6B7000DBC6F4 /* FilterCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D1292A9B6B7000DBC6F4 /* FilterCellDelegate.swift */; };
+		BAB0D12C2A9B6BA300DBC6F4 /* FilterPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0D12B2A9B6BA300DBC6F4 /* FilterPresenterProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +107,20 @@
 		BA8F426F29B106B800567099 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Medium.otf"; path = "ContactsList/Resources/SF-Pro-Text-Medium.otf"; sourceTree = SOURCE_ROOT; };
 		BA8F427529B116E400567099 /* MyColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyColors.swift; sourceTree = "<group>"; };
 		BA8F427829B1185F00567099 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		BAB0D10D2A9B605500DBC6F4 /* SplashScreenViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewControllerProtocol.swift; sourceTree = "<group>"; };
+		BAB0D10F2A9B608600DBC6F4 /* SplashScreenPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenterProtocol.swift; sourceTree = "<group>"; };
+		BAB0D1112A9B61A900DBC6F4 /* FilterViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewDelegate.swift; sourceTree = "<group>"; };
+		BAB0D1132A9B61E300DBC6F4 /* SortViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewDelegate.swift; sourceTree = "<group>"; };
+		BAB0D1152A9B622900DBC6F4 /* ContactViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewControllerProtocol.swift; sourceTree = "<group>"; };
+		BAB0D1182A9B636600DBC6F4 /* ContactViewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewPresenterProtocol.swift; sourceTree = "<group>"; };
+		BAB0D11A2A9B638200DBC6F4 /* ContactSortDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactSortDelegate.swift; sourceTree = "<group>"; };
+		BAB0D11C2A9B63B700DBC6F4 /* ContactFilterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactFilterDelegate.swift; sourceTree = "<group>"; };
+		BAB0D1202A9B677C00DBC6F4 /* BlueRadioButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueRadioButtonDelegate.swift; sourceTree = "<group>"; };
+		BAB0D1222A9B67B900DBC6F4 /* SortViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewControllerProtocol.swift; sourceTree = "<group>"; };
+		BAB0D1242A9B688800DBC6F4 /* SortPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPresenterProtocol.swift; sourceTree = "<group>"; };
+		BAB0D1272A9B6B3700DBC6F4 /* FilterViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewControllerProtocol.swift; sourceTree = "<group>"; };
+		BAB0D1292A9B6B7000DBC6F4 /* FilterCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCellDelegate.swift; sourceTree = "<group>"; };
+		BAB0D12B2A9B6BA300DBC6F4 /* FilterPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresenterProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +151,7 @@
 		BA05D9A129B3ACB4001C5725 /* FilterScreen */ = {
 			isa = PBXGroup;
 			children = (
+				BAB0D1262A9B6B2200DBC6F4 /* Protocols */,
 				BA05D9A229B3AD52001C5725 /* FilterViewController.swift */,
 				BA05D9A429B3B1E6001C5725 /* FilterViewCell.swift */,
 				BA05D9A829B3EA15001C5725 /* FilterPresenter.swift */,
@@ -133,6 +162,7 @@
 		BA05D9AA29B66F73001C5725 /* SortScreen */ = {
 			isa = PBXGroup;
 			children = (
+				BAB0D11F2A9B668E00DBC6F4 /* Protocols */,
 				BA05D9AB29B66F99001C5725 /* SortViewController.swift */,
 				BA38D71729BA341C00285D51 /* SortPresenter.swift */,
 				BA38D71529B90C3600285D51 /* BlueRadioButton.swift */,
@@ -214,11 +244,11 @@
 		BA8F425529AEA13B00567099 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				BA8F425929AF46C900567099 /* SplashScreen */,
+				BA8F426629B0EED100567099 /* GetAccessScreen */,
+				BA8F425629AEA16700567099 /* ContactScreen */,
 				BA05D9AA29B66F73001C5725 /* SortScreen */,
 				BA05D9A129B3ACB4001C5725 /* FilterScreen */,
-				BA8F426629B0EED100567099 /* GetAccessScreen */,
-				BA8F425929AF46C900567099 /* SplashScreen */,
-				BA8F425629AEA16700567099 /* ContactScreen */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -226,6 +256,7 @@
 		BA8F425629AEA16700567099 /* ContactScreen */ = {
 			isa = PBXGroup;
 			children = (
+				BAB0D1172A9B633300DBC6F4 /* Protocols */,
 				BA8F422629AE7F0F00567099 /* ContactViewController.swift */,
 				BA8F425729AEA19500567099 /* ContactPresenter.swift */,
 				BA8F426229AF7D7B00567099 /* ContactCell.swift */,
@@ -236,6 +267,7 @@
 		BA8F425929AF46C900567099 /* SplashScreen */ = {
 			isa = PBXGroup;
 			children = (
+				BAB0D11E2A9B665E00DBC6F4 /* Protocols */,
 				BA8F425A29AF46EC00567099 /* SplashScreenViewController.swift */,
 				BA8F426029AF5C0F00567099 /* SplashScreenPresenter.swift */,
 			);
@@ -287,6 +319,48 @@
 				BA8F427829B1185F00567099 /* UIColorExtension.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		BAB0D1172A9B633300DBC6F4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BAB0D1112A9B61A900DBC6F4 /* FilterViewDelegate.swift */,
+				BAB0D1132A9B61E300DBC6F4 /* SortViewDelegate.swift */,
+				BAB0D1152A9B622900DBC6F4 /* ContactViewControllerProtocol.swift */,
+				BAB0D1182A9B636600DBC6F4 /* ContactViewPresenterProtocol.swift */,
+				BAB0D11A2A9B638200DBC6F4 /* ContactSortDelegate.swift */,
+				BAB0D11C2A9B63B700DBC6F4 /* ContactFilterDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		BAB0D11E2A9B665E00DBC6F4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BAB0D10D2A9B605500DBC6F4 /* SplashScreenViewControllerProtocol.swift */,
+				BAB0D10F2A9B608600DBC6F4 /* SplashScreenPresenterProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		BAB0D11F2A9B668E00DBC6F4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BAB0D1202A9B677C00DBC6F4 /* BlueRadioButtonDelegate.swift */,
+				BAB0D1222A9B67B900DBC6F4 /* SortViewControllerProtocol.swift */,
+				BAB0D1242A9B688800DBC6F4 /* SortPresenterProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		BAB0D1262A9B6B2200DBC6F4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BAB0D1272A9B6B3700DBC6F4 /* FilterViewControllerProtocol.swift */,
+				BAB0D1292A9B6B7000DBC6F4 /* FilterCellDelegate.swift */,
+				BAB0D12B2A9B6BA300DBC6F4 /* FilterPresenterProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -426,25 +500,39 @@
 			files = (
 				BA05D9A529B3B1E6001C5725 /* FilterViewCell.swift in Sources */,
 				BA8F426329AF7D7B00567099 /* ContactCell.swift in Sources */,
+				BAB0D12C2A9B6BA300DBC6F4 /* FilterPresenterProtocol.swift in Sources */,
 				BA05D9AC29B66F99001C5725 /* SortViewController.swift in Sources */,
+				BAB0D11B2A9B638200DBC6F4 /* ContactSortDelegate.swift in Sources */,
+				BAB0D10E2A9B605500DBC6F4 /* SplashScreenViewControllerProtocol.swift in Sources */,
+				BAB0D11D2A9B63B700DBC6F4 /* ContactFilterDelegate.swift in Sources */,
 				BA8F427629B116E400567099 /* MyColors.swift in Sources */,
 				BA8F422D29AE7F0F00567099 /* ContactsList.xcdatamodeld in Sources */,
+				BAB0D1252A9B688800DBC6F4 /* SortPresenterProtocol.swift in Sources */,
 				BA8F426129AF5C0F00567099 /* SplashScreenPresenter.swift in Sources */,
+				BAB0D1102A9B608600DBC6F4 /* SplashScreenPresenterProtocol.swift in Sources */,
 				BA38D71829BA341C00285D51 /* SortPresenter.swift in Sources */,
+				BAB0D1162A9B622900DBC6F4 /* ContactViewControllerProtocol.swift in Sources */,
 				BA8F422729AE7F0F00567099 /* ContactViewController.swift in Sources */,
 				BA05D9A929B3EA15001C5725 /* FilterPresenter.swift in Sources */,
 				BA8F425B29AF46EC00567099 /* SplashScreenViewController.swift in Sources */,
 				BA8F426829B0EF4400567099 /* GetAccessViewController.swift in Sources */,
 				BA8F422329AE7F0F00567099 /* AppDelegate.swift in Sources */,
+				BAB0D12A2A9B6B7000DBC6F4 /* FilterCellDelegate.swift in Sources */,
+				BAB0D1192A9B636600DBC6F4 /* ContactViewPresenterProtocol.swift in Sources */,
+				BAB0D1142A9B61E300DBC6F4 /* SortViewDelegate.swift in Sources */,
 				BA8F422529AE7F0F00567099 /* SceneDelegate.swift in Sources */,
 				BA6B9D6C29BB99DB0075C5F1 /* SortOption.swift in Sources */,
 				BA05D9A029B3A19B001C5725 /* ContactCellContent.swift in Sources */,
+				BAB0D1282A9B6B3700DBC6F4 /* FilterViewControllerProtocol.swift in Sources */,
 				BA8F425829AEA19500567099 /* ContactPresenter.swift in Sources */,
 				BA8F426529AF834400567099 /* ContactService.swift in Sources */,
+				BAB0D1212A9B677C00DBC6F4 /* BlueRadioButtonDelegate.swift in Sources */,
 				BA8F425E29AF4C8200567099 /* Contact.swift in Sources */,
 				BA05D9A329B3AD52001C5725 /* FilterViewController.swift in Sources */,
 				BA8F427929B1185F00567099 /* UIColorExtension.swift in Sources */,
 				BA38D71629B90C3600285D51 /* BlueRadioButton.swift in Sources */,
+				BAB0D1122A9B61A900DBC6F4 /* FilterViewDelegate.swift in Sources */,
+				BAB0D1232A9B67B900DBC6F4 /* SortViewControllerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

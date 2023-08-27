@@ -1,32 +1,28 @@
 import UIKit
 import Contacts
 
-// MARK: - SplashScreenPresenterProtocol
-protocol SplashScreenPresenterProtocol {
-    var view: SplashScreenViewControllerProtocol? { get set }
-    func viewDidLoad()
-}
-
-
-
 final class SplashScreenPresenter: SplashScreenPresenterProtocol {
-    // MARK: - Properties
+    // MARK: - Puplic properties
+    
     var view: SplashScreenViewControllerProtocol?
+    
+    // MARK: - Private properties
     
     private let contactStore = CNContactStore()
     private let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
     private let service: ContactService = ContactServiceImpl()
     
-    
     // MARK: - Lifecicle
+    
     func viewDidLoad() {
         view?.configureLogoImageView()
         checkAuthStatus()
     }
-    
-    
-    // MARK: - Methods
-    private func checkAuthStatus () {
+}
+// MARK: - Private methods
+
+private extension SplashScreenPresenter {
+    func checkAuthStatus () {
         switch authorizationStatus {
         case .authorized:
             switchToContactView()
@@ -50,8 +46,7 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
         }
     }
     
-    
-    private func switchToContactView() {
+    func switchToContactView() {
         DispatchQueue.main.async {
             guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
             let contactsView = ContactViewController()
@@ -80,10 +75,9 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
         }
     }
     
-    
-    private func switchToGetAccessView() {
+    func switchToGetAccessView() {
         DispatchQueue.main.async {
-        guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
+            guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
             let getAccessView = GetAccessViewConrtoller()
             window.rootViewController = getAccessView
         }

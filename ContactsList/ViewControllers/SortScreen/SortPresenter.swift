@@ -1,25 +1,19 @@
 import UIKit
-// MARK: - Protocol
-protocol SortPresenterProtocol {
-    var view: SortViewControllerProtocol? { get set }
-    func checkConfirmButtonAccessability()
-    func changeButtonsPointIsHidden(sortOption: sortOption)
-    func viewWillAppear()
-    func didTapConfirmButton()
-    func didTapResetButton()
-}
-
 
 final class SortPresenter: SortPresenterProtocol {
-    // MARK: - Properties
+    // MARK: - Public properties
+    
     var view: SortViewControllerProtocol?
     var delegate: SortViewDelegate?
     var contactPresenterDelegate: ContactSortDelegate?
     
+    // MARK: - Private properties
+    
     private var currentSortOption = sortOption.cancel
     private var previosSortOptions = sortOption.cancel
     
-    // MARK: - Methods
+    // MARK: - public properties
+    
     func viewWillAppear() {
         changeButtonsPointIsHidden(sortOption: previosSortOptions)
         checkConfirmButtonAccessability()
