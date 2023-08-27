@@ -1,20 +1,13 @@
 import UIKit
 
-// MARK: - FilterCellDelegate
-protocol FilterCellDelegate: AnyObject {
-    func filterCheckboxButtonClicked(cell:FilterViewCell)
-}
-
-
-
 final class FilterViewCell: UITableViewCell {
     // MARK: - UI
+    
     private var checkboxIndicatorView = UIImageView()
     private let cellBackgroundView = UIView()
     private var checkboxButtonIsSelected: Bool = false
     
     weak var delegate: FilterCellDelegate?
-    
     
     // MARK: - UI Configuration
     func configureCellContent(content: ContactCellContent) {
