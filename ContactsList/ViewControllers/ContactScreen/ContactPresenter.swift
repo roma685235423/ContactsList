@@ -3,7 +3,7 @@ import Foundation
 final class ContactPresenter: ContactViewPresenterProtocol {
     // MARK: - Public properties
     
-    var view: ContactViewControllerProtocol?
+    weak var view: ContactViewControllerProtocol?
     var contactCellModels: [Contact] = []
     
     // MARK: - Private properties

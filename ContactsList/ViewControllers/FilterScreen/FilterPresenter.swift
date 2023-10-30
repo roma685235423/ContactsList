@@ -3,9 +3,9 @@ import UIKit
 final class FilterPresenter: FilterPresenterProtocol {
     // MARK: - Public properties
     
-    var contactPresenterDelegate: ContactFilterDelegate?
-    var view: FilterViewControllerProtocol?
-    var delegate: FilterViewDelegate?
+    weak var contactPresenterDelegate: ContactFilterDelegate?
+    weak var view: FilterViewControllerProtocol?
+    weak var delegate: FilterViewDelegate?
     var messengerFiltersData: [ContactCellContent] = [
         ContactCellContent(name: "Выбрать все", iconName: nil),
         ContactCellContent(name: "Telegram", iconName: "telegramSqr"),

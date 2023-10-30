@@ -179,7 +179,7 @@ extension ContactViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let cellModelsCount = self.presenter?.contactCellModels.count else {fatalError("Invalid models configuration")}
+        guard let cellModelsCount = self.presenter?.contactCellModels.count else { return 0 }
         return cellModelsCount
     }
     
@@ -197,7 +197,6 @@ extension ContactViewController: UITableViewDataSource {
 
 // MARK: - Extension UITableViewDelegate
 extension ContactViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAlert = UIAlertController(
             title: nil,

@@ -3,7 +3,7 @@ import Foundation
 
 // MARK: - FilterViewControllerProtocol
 
-protocol FilterViewControllerProtocol {
+protocol FilterViewControllerProtocol: AnyObject {
     var presenter: FilterPresenterProtocol? { get set }
     func makeConfirmButtonEnabled()
     func makeConfirmButtonUnEnabled()

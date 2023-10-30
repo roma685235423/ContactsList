@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - FilterPresenterProtocol
 
-protocol FilterPresenterProtocol {
+protocol FilterPresenterProtocol: AnyObject {
     var view: FilterViewControllerProtocol? { get set }
     var messengerFiltersData: [ContactCellContent] { get set }
     var tmpIsSelected: [Bool] { get }

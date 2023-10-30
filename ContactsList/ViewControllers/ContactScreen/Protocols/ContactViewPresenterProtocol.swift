@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - ContactViewPresenterProtocol
 
-protocol ContactViewPresenterProtocol {
+protocol ContactViewPresenterProtocol: AnyObject {
     var view: ContactViewControllerProtocol? {get set}
     var contactCellModels: [Contact] { get }
     func loadData()
