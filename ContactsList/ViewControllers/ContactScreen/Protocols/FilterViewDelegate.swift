@@ -2,6 +2,6 @@ import Foundation
 
 // MARK: - FilterViewDelegate
 
-protocol FilterViewDelegate{
+protocol FilterViewDelegate: AnyObject {
     func filterIndicator(isHidden: Bool)
 }

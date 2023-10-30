@@ -66,11 +66,11 @@ private extension SplashScreenPresenter {
             filterPresenter.delegate = contactsView
             filterPresenter.contactPresenterDelegate = contactPresenter
             
+            contactsView.presenter = contactPresenter
+            contactsView.presenter?.loadData()
             contactsView.sortViewController = sortViewController
             contactsView.filterViewController = filterViewController
             
-            contactsView.presenter = contactPresenter
-            contactsView.presenter?.loadData()
             window.rootViewController = contactsView
         }
     }

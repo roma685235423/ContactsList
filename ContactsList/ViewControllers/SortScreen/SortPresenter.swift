@@ -3,9 +3,9 @@ import UIKit
 final class SortPresenter: SortPresenterProtocol {
     // MARK: - Public properties
     
-    var view: SortViewControllerProtocol?
-    var delegate: SortViewDelegate?
-    var contactPresenterDelegate: ContactSortDelegate?
+    weak var view: SortViewControllerProtocol?
+    weak var delegate: SortViewDelegate?
+    weak var contactPresenterDelegate: ContactSortDelegate?
     
     // MARK: - Private properties
     
